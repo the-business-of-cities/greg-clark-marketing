@@ -57,7 +57,26 @@ rawdata.items.forEach(item => {
 	);
 });
 
-// shape the data however you want my guy
-const retval = dataObj;
+// --------------------------------------------------
+
+const navLinks = (
+	dataObj.siteSettings[0].navLinks
+	.map(({ fields, }) => R.pipe(
+		shapeFields,
+		R.omit([ "content", ]),
+		o => ({
+			...o,
+			path: "/" + o.slug,
+		})
+	)(fields))
+);
+
+const pages = dataObj.page.map(R.omit([ "content", ]));
+
+const retval = {
+	...dataObj.siteSettings[0],
+	navLinks,
+	pages,
+};
 
 export default retval;

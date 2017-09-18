@@ -72,7 +72,7 @@ const Logo = props =>
 	<LogoWrapper to = "/">
 		{
 			true
-			? <LogoText>LOGO TEXT</LogoText>
+			? <LogoText>Greg Clark (Urbanist)</LogoText>
 			: <LogoImage src = "/img/igpf-logo.png"/>
 		}
 	</LogoWrapper>;
@@ -81,13 +81,34 @@ const IndexLink = props => <Link to = "/" { ...props } />;
 
 const LogoWrapper = styled(IndexLink)`
 	position: absolute;
-	top: 0;
-	bottom: 0;
+	top: 0;	
 	${ mixins.bpEither("left", vars.dim.nav.margin )}
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+
+	${ mixins.xs`
+		bottom: 0;
+	`}
+	${ mixins.bp.sm.min`
+		bottom: ${vars.dim.nav.linksHeight};
+	`}
+
+
 `;
+
+const Line = styled.div`
+	${mixins.xs`
+		display: none;
+	`}
+	height: 1.5px;
+	background: white;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: ${vars.dim.nav.linksHeight};
+
+`;	
 
 // --------------------------------------------------
 
@@ -126,6 +147,7 @@ const Nav = ({ open, closeMenu, toggleMenu, }) => (
 				</BurgerWrapper>
 			</MobileStuff>
 			
+			<Line/>
 			<Logo />
 		</Inner>
 	</Wrapper>

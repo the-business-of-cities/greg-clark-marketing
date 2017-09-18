@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import * as mixins from "../style/mixins";
 import * as vars from "../style/vars";
+import data from "src/data";
 
 import { Icon, } from "./misc";
 
@@ -13,7 +14,7 @@ const Wrapper = styled.footer`
 	${ mixins.bpEither("height", vars.dim.footer.height) }
 	${ mixins.bpEither("padding", vars.dim.nav.margin) };
 	align-items: center;
-	border-top: 1px solid ${ mixins.tr(0.2) };
+	border-top: 1.5px solid ${ R.path([ "theme", "nav", ]) };
 	bottom: 0;
 	display: flex;
 	justify-content: space-between;
@@ -24,7 +25,6 @@ const Wrapper = styled.footer`
 `;
 
 const Left = styled.div`
-	font-weight: bold;
 `;
 
 const Right = styled.div`
@@ -39,7 +39,7 @@ const Right = styled.div`
 
 const Footer = () =>
 	<Wrapper>
-		<Left>Footer Text</Left>
+		<Left>{ data.footerText }</Left>
 
 		<Right>
 			<a href = "#"><Icon type = "facebook-square"/></a>

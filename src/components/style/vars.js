@@ -19,9 +19,8 @@ export const colors = {
 	footer: "#fff",
 	grey: "rgba(0,0,0,0.2)",
 	lines: "rgba(0,0,0,0.2)",
+	nav: "#333",
 };
-
-colors.nav = colors.text;
 
 export const font = {
 	size: {
@@ -55,7 +54,7 @@ export const dimensions = {
 	nav: {
 		height: {
 			xs: "50px",
-			other: "70px",
+			other: "96px",
 		},
 		margin: {
 			xs: "10px",
@@ -65,6 +64,7 @@ export const dimensions = {
 			xs: "40px",
 			other: "60px",
 		},
+		linksHeight: "34px",
 	},
 	footer: {
 		height: {

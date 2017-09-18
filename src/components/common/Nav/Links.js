@@ -22,9 +22,10 @@ const wrapperStyle = [
 
 	`
 		position: absolute;
-		right: ${ mixins.num(vars.dim.nav.margin.other) * 0.5 }px;
-		top: 0;
+		right: ${vars.dim.nav.margin.other};
+		left: ${vars.dim.nav.margin.other};
 		bottom: 0;
+		height: ${vars.dim.nav.linksHeight};
 		display: flex;
 		align-items: center;
 	`,
@@ -50,15 +51,19 @@ const buttonStyle = [
 	`,
 
 	`
-		line-height: ${ vars.dim.nav.height.other };
-		padding: 0 ${ mixins.num(vars.dim.nav.margin.other) * 0.5 }px;
 		display: inline-block;
-		height: ${ vars.dim.nav.height.other };
-		border-bottom: 3px solid transparent;
-		border-top: 1px solid transparent;
+		height: ${ vars.dim.nav.linksHeight };
+		line-height: ${ vars.dim.nav.linksHeight };
+		padding: 0 0.75em;
+		font-size: 0.85em;
+		text-transform: uppercase;
 
 		&.active {
-			border-bottom-color: white;
+			background-color: rgba(255,255,255,0.3);
+		}
+
+		&:not(.active):hover {
+			background-color: rgba(255,255,255,0.1);
 		}
 	`,
 ];

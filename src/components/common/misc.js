@@ -13,12 +13,13 @@ export const GridCell = styled.div`
 	p.flex ? `flex: ${ p.flex };` : "" };
 `;
 
-const textBoxMargins = objMap(vars.font.size, (key, val) => `-${val} 0`);
+const textBoxMargins = objMap(vars.font.size, (key, val) => `-${val} auto`);
 
 export const TextBox = styled.div`
 	${ mixins.bpEach("margin", textBoxMargins) } ${p =>
 	p.bold ? "font-weight: bold;" : ""} ${p =>
 	p.align ? `text-align: ${p.align};` : ""};
+	max-width: 44em;
 `;
 
 export const TextCell = props =>
