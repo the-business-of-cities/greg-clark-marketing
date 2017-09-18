@@ -37,13 +37,20 @@ const Right = styled.div`
 	}
 `;
 
+const socialLinks = [ "twitter", "facebook", "youtube", "linkedin", ];
+
 const Footer = () =>
 	<Wrapper>
 		<Left>{ data.footerText }</Left>
 
 		<Right>
-			<a href = "#"><Icon type = "facebook-square"/></a>
-			<a href = "#"><Icon type = "twitter"/></a>
+			{
+				socialLinks.map(str => (
+					data[str + "Link"]
+					? <a href = { data[str + "Link"] }><Icon type = { str }/></a>
+					: null
+				))
+			}
 		</Right>
 	</Wrapper>;
 
