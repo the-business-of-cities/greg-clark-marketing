@@ -22,25 +22,65 @@ const Wrapper = styled.footer`
 	overflow: hidden;
 	position: absolute;
 	right: 0;
+	${mixins.xs`
+		flex-wrap: wrap;
+		height: auto;
+	`}
+	
 `;
 
-const Left = styled.div`
+const FooterSection = styled.div`
+	text-align: center;
+	${mixins.xs`
+		width: 100%;
+		padding: 4px;
+	`}
 `;
 
-const Center = styled.div`
+const Copyright = styled(FooterSection)`
+	order: -1;
+	${mixins.xs`
+		order: 0;
+	`}
+`;
+
+const Contact = styled(FooterSection)`
+	order: 0;
+	${mixins.xs`
+		order: -1;
+	`}
+
 	a:hover {
 		text-decoration: underline;
 	}
 `;
 
-const Right = styled.div`
+const Social = styled(FooterSection)`
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 	font-size: 1.5em;
+	margin: 0 -0.25em;
+	order: 1;
+	${mixins.xs`
+		order: 1;
+	`}
 
 	a {
-		margin-left: 0.5em;
+		margin: 0 0.25em;
 	}
+`;
+
+const ReallySmallScreens = styled.br`
+	${mixins.bp.min(350)`
+		display: none;
+	`}
+`;
+
+const OtherScreens = styled.span`
+	${mixins.bp.max(349)`
+		display: none;
+	`}
 `;
 
 const formatTelNumber = num => {
@@ -59,22 +99,24 @@ const socialLinks = [ "twitter", "facebook", "youtube", "linkedin", ];
 
 const Footer = () =>
 	<Wrapper>
-		<Left>{ data.footerText }</Left>
+		<Copyright>{ data.footerText }</Copyright>
 
-		<Center>
-			Email: <a href = { "mailto:" + data.email }>{ data.email }</a> |
+		<Contact>
+			Email: <a href = { "mailto:" + data.email }>{ data.email }</a>
+			<ReallySmallScreens></ReallySmallScreens>
+			<OtherScreens> | </OtherScreens>
 			Tel: <a href = { "tel:" + data.telephone }>{ formatTelNumber(data.telephone) }</a>
-		</Center>
+		</Contact>
 
-		<Right>
+		<Social>
 			{
 				socialLinks.map(str => (
 					data[str + "Link"]
-					? <a href = { data[str + "Link"] }><Icon type = { str }/></a>
+					? <a href = { data[str + "Link"] } key = { str }><Icon type = { str }/></a>
 					: null
 				))
 			}
-		</Right>
+		</Social>
 	</Wrapper>;
 
 export default Footer;
