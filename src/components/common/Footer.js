@@ -22,36 +22,101 @@ const Wrapper = styled.footer`
 	overflow: hidden;
 	position: absolute;
 	right: 0;
+	${mixins.xs`
+		flex-wrap: wrap;
+		height: auto;
+	`}
+	
 `;
 
-const Left = styled.div`
+const FooterSection = styled.div`
+	text-align: center;
+	${mixins.xs`
+		width: 100%;
+		padding: 4px;
+	`}
 `;
 
-const Right = styled.div`
-	display: flex;
-	flex-direction: row;
-	font-size: 1.5em;
+const Copyright = styled(FooterSection)`
+	order: -1;
+	${mixins.xs`
+		order: 0;
+	`}
+`;
 
-	a {
-		margin-left: 0.5em;
+const Contact = styled(FooterSection)`
+	order: 0;
+	${mixins.xs`
+		order: -1;
+	`}
+
+	a:hover {
+		text-decoration: underline;
 	}
 `;
+
+const Social = styled(FooterSection)`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	font-size: 1.5em;
+	margin: 0 -0.25em;
+	order: 1;
+	${mixins.xs`
+		order: 1;
+	`}
+
+	a {
+		margin: 0 0.25em;
+	}
+`;
+
+const ReallySmallScreens = styled.br`
+	${mixins.bp.min(350)`
+		display: none;
+	`}
+`;
+
+const OtherScreens = styled.span`
+	${mixins.bp.max(349)`
+		display: none;
+	`}
+`;
+
+const formatTelNumber = num => {
+	if (num.slice(0,1) === "+" && num.length === 13) {
+		return `${num.slice(0,3)} (0)${num.slice(3,6)} ${num.slice(6,9)} ${num.slice(9,13)}`;
+	}
+	if (num.slice(0,1) === "0" && num.length === 11) {
+		return `${num.slice(0,4)} ${num.slice(4,7)} ${num.slice(7,11)}`;
+	}
+	else {
+		return num;
+	}
+}
 
 const socialLinks = [ "twitter", "facebook", "youtube", "linkedin", ];
 
 const Footer = () =>
 	<Wrapper>
-		<Left>{ data.footerText }</Left>
+		<Copyright>{ data.footerText }</Copyright>
 
-		<Right>
+		<Contact>
+			Email: <a href = { "mailto:" + data.email }>{ data.email }</a>
+			<ReallySmallScreens></ReallySmallScreens>
+			<OtherScreens> | </OtherScreens>
+			Tel: <a href = { "tel:" + data.telephone }>{ formatTelNumber(data.telephone) }</a>
+		</Contact>
+
+		<Social>
 			{
 				socialLinks.map(str => (
 					data[str + "Link"]
-					? <a href = { data[str + "Link"] }><Icon type = { str }/></a>
+					? <a href = { data[str + "Link"] } key = { str }><Icon type = { str }/></a>
 					: null
 				))
 			}
-		</Right>
+		</Social>
 	</Wrapper>;
 
 export default Footer;

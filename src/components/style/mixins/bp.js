@@ -23,6 +23,24 @@ export const bp = objMap(vars.bps, (key, val) => ({
 	`,
 }));
 
+Object.assign(bp, {
+	min: px => (...cont) => css`
+		@media (min-width: ${px}px) {
+			${css(...cont)}
+		}
+	`,
+	max: px => (...cont) => css`
+		@media (max-width: ${px}px) {
+			${css(...cont)}
+		}
+	`,
+	only: (min, max) => (...cont) => css`
+		@media (min-width: ${min}px) and (max-width: ${max}px) {
+			${css(...cont)}
+		}
+	`,
+});
+
 export const xs = bp.xs.only;
 export const sm = bp.sm.only;
 export const md = bp.md.only;
