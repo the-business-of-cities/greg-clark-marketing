@@ -39,7 +39,7 @@ Object.assign(bp, {
 			${css(...cont)}
 		}
 	`,
-})
+});
 
 export const xs = bp.xs.only;
 export const sm = bp.sm.only;

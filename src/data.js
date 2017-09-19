@@ -8,16 +8,20 @@ const slugify = x => _slugify(x, {
 });
 
 const shapeImageField = ({
-	url,
-	details: {
-		size,
-		image: {
-			width,
-			height,
+	fields: {
+		file: {
+			url,
+			details: {
+				size,
+				image: {
+					width,
+					height,
+				},
+			},
+			fileName,
+			contentType,
 		},
 	},
-	fileName,
-	contentType,
 }) => ({
 	contentType,
 	fileName,
@@ -27,29 +31,26 @@ const shapeImageField = ({
 	width,
 });
 
-const shapeFields = fields => ({
-	...fields,
+// transform a field or do something to an existing field to add a new one
+const adjustFields = (a, b, fn) => fieldsObj => ({
+	...fieldsObj,
 	...(
-		fields.image
-		? { image: shapeImageField(fields.image.fields.file), }
-		: {}
-	),
-	...(
-		fields.title
-		? { slug: slugify(fields.title), }
-		: {}
-	),
-	...(
-		fields.content
-		? { html: marked(fields.content), }
+		fieldsObj[a]
+		? { [b]: fn(fieldsObj[a]), }
 		: {}
 	),
 });
 
+const defaultFieldShaping = R.pipe(
+	adjustFields("image", "image", shapeImageField),
+	adjustFields("title", "slug", slugify),
+	adjustFields("content", "html", marked),
+);
+
 const dataObj = {};
 rawdata.items.forEach(item => {
 	const itemType = item.sys.contentType.sys.id;
-	const shapedItem = shapeFields(item.fields);
+	const shapedItem = defaultFieldShaping(item.fields);
 	dataObj[itemType] = (
 		dataObj[itemType]
 		? dataObj[itemType].concat(shapedItem)
@@ -61,14 +62,12 @@ rawdata.items.forEach(item => {
 
 const navLinks = (
 	dataObj.siteSettings[0].navLinks
-	.map(({ fields, }) => R.pipe(
-		shapeFields,
+	.map(R.pipe(
+		R.prop("fields"),
+		defaultFieldShaping,
 		R.omit([ "content", ]),
-		o => ({
-			...o,
-			path: "/" + o.slug,
-		})
-	)(fields))
+		adjustFields("slug", "path", slug => "/" + slug),
+	))
 );
 
 const pages = dataObj.page.map(R.omit([ "content", ]));

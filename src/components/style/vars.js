@@ -68,7 +68,7 @@ export const dimensions = {
 	},
 	footer: {
 		height: {
-			xs: "50px",
+			xs: "130px",
 			other: "60px",
 		},
 	},
