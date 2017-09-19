@@ -19,7 +19,7 @@ export const TextBox = styled.div`
 	${ mixins.bpEach("margin", textBoxMargins) } ${p =>
 	p.bold ? "font-weight: bold;" : ""} ${p =>
 	p.align ? `text-align: ${p.align};` : ""};
-	max-width: 44em;
+	// max-width: 44em;
 `;
 
 export const TextCell = props =>
@@ -66,6 +66,20 @@ export const Para = props =>
 export const FullWidthImg = styled.img`
 	width: 100%;
 	height: auto;
+`;
+
+export const SmartImg = styled.div`
+	width: 100%;
+	${p => (
+		p.height && p.width
+		? `padding-top: ${100 * (p.height / p.width)}%;`
+		: "padding-top: 100%;"
+	)}
+	background-color: rgba(0,0,0,0.2);
+	background-image: url(${R.prop("url")});
+	background-size: cover;
+	background-position: center center;
+	background-repeat: norepeat;
 `;
 
 const IconWrapper = styled.i`

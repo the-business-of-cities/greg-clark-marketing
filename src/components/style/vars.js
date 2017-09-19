@@ -4,7 +4,8 @@ import { objMap, } from "../../lib/util";
 
 const sm = 768;
 const md = 992;
-const lg = 1200;
+// const lg = 1200;
+const lg = md;
 
 export const breakpoints = {
 	xs: { min: 0, max: sm - 1, },
@@ -20,6 +21,7 @@ export const colors = {
 	grey: "rgba(0,0,0,0.2)",
 	lines: "rgba(0,0,0,0.2)",
 	nav: "#333",
+	borders: "rgba(0,0,0,0.2)",
 };
 
 export const font = {

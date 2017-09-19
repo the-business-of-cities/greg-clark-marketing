@@ -72,10 +72,19 @@ const navLinks = (
 
 const pages = dataObj.page.map(R.omit([ "content", ]));
 
+const publications = (
+	dataObj.publication
+	.sort((l,r) => (new Date(r.approximateDate) - new Date(l.approximateDate)))
+	.map(
+		adjustFields("description", "description", marked)
+	)
+);
+
 const retval = {
 	...dataObj.siteSettings[0],
 	navLinks,
 	pages,
+	publications,
 };
 
 export default retval;

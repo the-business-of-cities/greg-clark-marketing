@@ -3,6 +3,8 @@ import NotFound from "./components/pages/404";
 
 import Home from "./components/pages/Home";
 import Generic from "./components/pages/Generic";
+import Publications from "./components/pages/Publications";
+import Import from "./components/pages/Import";
 
 import data from "src/data";
 import rawdata from "src/rawdata";
@@ -38,6 +40,20 @@ data.navLinks.forEach(o => {
 		show: true,
 	})
 })
+
+routesConfig.push({
+	path: "/publications",
+	title: "Publications",
+	component: Publications,
+	show: true,
+});
+
+routesConfig.push({
+	path: "/import",
+	title: "Import",
+	component: Import,
+	show: true,
+});
 
 routesConfig.push({
 	component: NotFound,
