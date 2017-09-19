@@ -12,6 +12,7 @@
     "jsonfile": "^3.0.1",
     "marked": "^0.3.6",
     "masonry-layout": "^4.2.0",
+    "moment": "^2.18.1",
     "node-fetch": "^1.7.2",
     "process-promises": "^1.0.0",
     "ramda": "^0.24.1",

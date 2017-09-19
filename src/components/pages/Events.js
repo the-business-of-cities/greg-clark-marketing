@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Moment from "moment";
 
 import { 
 	Container, 
@@ -10,9 +11,16 @@ import * as vars from "src/components/style/vars";
 
 import Data from "src/data";
 
+// --------------------------------------------------
+
 const Event = styled.div`
 	position: relative;
 	overflow: hidden;
+	margin-bottom: 1em;
+
+	&:hover {
+		opacity: 0.7;
+	}
 `;
 
 const EventImage = styled.img`
@@ -37,11 +45,18 @@ const EventBody = styled.div`
 	}
 `;
 
+const EventDate = styled.div`
+	font-size: 0.8em;
+	opacity: 0.9;
+`;
+
 const EventLocation = styled.div`
 	font-size: 0.8em;
 	opacity: 0.9;
 	margin-bottom: 0.5em;
 `;
+
+// --------------------------------------------------
 
 const Events = ({ html, }) => (
 	<Container>
@@ -60,6 +75,8 @@ const Events = ({ html, }) => (
 						<Event>
 							<EventBody>
 								<h4>{ event.name }</h4>
+
+								<EventDate>{ Moment(event.date).format('Do MMMM YYYY') }</EventDate>
 
 								<EventLocation>{ event.location }</EventLocation>
 
