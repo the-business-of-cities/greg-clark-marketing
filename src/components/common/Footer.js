@@ -27,6 +27,12 @@ const Wrapper = styled.footer`
 const Left = styled.div`
 `;
 
+const Center = styled.div`
+	a:hover {
+		text-decoration: underline;
+	}
+`;
+
 const Right = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -37,11 +43,28 @@ const Right = styled.div`
 	}
 `;
 
+const formatTelNumber = num => {
+	if (num.slice(0,1) === "+" && num.length === 13) {
+		return `${num.slice(0,3)} (0)${num.slice(3,6)} ${num.slice(6,9)} ${num.slice(9,13)}`;
+	}
+	if (num.slice(0,1) === "0" && num.length === 11) {
+		return `${num.slice(0,4)} ${num.slice(4,7)} ${num.slice(7,11)}`;
+	}
+	else {
+		return num;
+	}
+}
+
 const socialLinks = [ "twitter", "facebook", "youtube", "linkedin", ];
 
 const Footer = () =>
 	<Wrapper>
 		<Left>{ data.footerText }</Left>
+
+		<Center>
+			Email: <a href = { "mailto:" + data.email }>{ data.email }</a> |
+			Tel: <a href = { "tel:" + data.telephone }>{ formatTelNumber(data.telephone) }</a>
+		</Center>
 
 		<Right>
 			{
