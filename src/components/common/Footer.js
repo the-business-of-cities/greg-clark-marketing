@@ -22,15 +22,17 @@ const Wrapper = styled.footer`
 	overflow: hidden;
 	position: absolute;
 	right: 0;
+	color: white;
+
 	${mixins.xs`
 		flex-wrap: wrap;
 		height: auto;
 	`}
-	
 `;
 
 const FooterSection = styled.div`
 	text-align: center;
+
 	${mixins.xs`
 		width: 100%;
 		padding: 4px;
@@ -39,6 +41,7 @@ const FooterSection = styled.div`
 
 const Copyright = styled(FooterSection)`
 	order: -1;
+
 	${mixins.xs`
 		order: 0;
 	`}
@@ -50,8 +53,13 @@ const Contact = styled(FooterSection)`
 		order: -1;
 	`}
 
-	a:hover {
-		text-decoration: underline;
+	a {
+		color: white;
+
+		&:hover {
+			color: #ddd;
+			text-decoration: underline;
+		}
 	}
 `;
 
@@ -67,7 +75,12 @@ const Social = styled(FooterSection)`
 	`}
 
 	a {
+		color: white;
 		margin: 0 0.25em;
+
+		&:hover {
+			color: #ddd;
+		}
 	}
 `;
 
