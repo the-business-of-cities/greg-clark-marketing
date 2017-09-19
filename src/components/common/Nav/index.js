@@ -10,6 +10,8 @@ import Links from "./Links";
 import Burger from "./Burger";
 import Fade from "../Fade";
 
+import Data from "src/data";
+
 // --------------------------------------------------
 
 const Wrapper = styled.nav`
@@ -60,7 +62,10 @@ const BurgerWrapper = styled.div`
 
 const LogoText = styled.div`
 	font-size: 2em;
-	font-family: ${vars.font.title.family};
+	font-family: ${ vars.font.title.family };
+	width: 100%;
+	max-width: 24em;
+	margin: auto;
 `;
 
 const LogoImage = styled.img`
@@ -73,7 +78,7 @@ const Logo = props =>
 		{
 			true
 			? <LogoText>Greg Clark (Urbanist)</LogoText>
-			: <LogoImage src = "/img/igpf-logo.png"/>
+			: <LogoImage src = { Data.image }/>
 		}
 	</LogoWrapper>;
 
@@ -86,6 +91,7 @@ const LogoWrapper = styled(IndexLink)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	width: 100%;
 
 	${ mixins.xs`
 		bottom: 0;

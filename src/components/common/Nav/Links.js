@@ -33,6 +33,8 @@ const wrapperStyle = [
 
 const Wrapper = styled.div`
 	${ mixins.xs`${ wrapperStyle[0] }` } ${ mixins.bp.sm.min`${ wrapperStyle[1] }`};
+	max-width: 44em;
+	margin: auto;
 `;
 
 const buttonStyle = [

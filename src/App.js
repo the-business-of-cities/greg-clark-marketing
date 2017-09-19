@@ -1,4 +1,5 @@
 import { ThemeProvider, } from "styled-components";
+import Helmet from "react-helmet";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -14,6 +15,8 @@ import Footer from "./components/common/Footer";
 import ScrollToTop from "./components/common/ScrollToTop";
 
 import * as vars from "./components/style/vars";
+
+import Data from "src/data";
 
 // --------------------------------------------------
 
@@ -50,6 +53,14 @@ export default () =>
 		<ScrollToTop>
 			<ThemeProvider theme = { defaultColors }>
 				<div>
+					<Helmet>
+						<meta charSet = "utf-8" />
+
+						<title>{ Data.siteTitle } | { Data.siteDescription }</title>
+						
+						<link rel = "canonical" href = "http://www.islingtongpfederation.org/" />
+					</Helmet>
+
 					<Nav key = "Nav" />
 
 					<Main key = "Main">
