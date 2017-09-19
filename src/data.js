@@ -51,6 +51,7 @@ const dataObj = {};
 rawdata.items.forEach(item => {
 	const itemType = item.sys.contentType.sys.id;
 	const shapedItem = defaultFieldShaping(item.fields);
+
 	dataObj[itemType] = (
 		dataObj[itemType]
 		? dataObj[itemType].concat(shapedItem)
@@ -72,10 +73,29 @@ const navLinks = (
 
 const pages = dataObj.page.map(R.omit([ "content", ]));
 
+const events = dataObj.event.map(R.omit([ "content", ]));
+
+// --------------------------------------------------
+
+const makeMapUsingSlugs = list => {
+	return list.reduce((acc, item) => (
+		{
+			...acc,
+			[item.slug]: item,
+		}
+	), {} )
+};
+
+const pagesMap = makeMapUsingSlugs(pages);
+
+// --------------------------------------------------
+
 const retval = {
 	...dataObj.siteSettings[0],
 	navLinks,
 	pages,
+	pagesMap,
+	events,
 };
 
 export default retval;

@@ -15,6 +15,7 @@ const Wrapper = styled(Container)`
 export default data => () => (
 	<Wrapper>
 		{ printObj(data) }
+		
 		{ console.log(data) }
 	</Wrapper>
 );

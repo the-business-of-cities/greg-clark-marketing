@@ -32,6 +32,7 @@ const routes = routesConfig.map(({
 	const render = props => (
 		<Comp
 			{ ...props }
+			
 			{ ...rest }
 		/>
 	);
