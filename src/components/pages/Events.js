@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Moment from "moment";
+import { Link } from "react-router-dom";
 
 import { 
 	Container, 
@@ -13,7 +14,7 @@ import Data from "src/data";
 
 // --------------------------------------------------
 
-const Event = styled.div`
+const EventWrapper = styled.div`
 	position: relative;
 	overflow: hidden;
 	margin-bottom: 1em;
@@ -65,23 +66,25 @@ const orderEvents = (events, future, condensed, ) => {
 	.filter( event => future ? Moment(event.date).diff(Moment()) >= 0 : Moment(event.date).diff(Moment()) < 0 )
 	.map( event => {
 		return (
-			<Event>
-				<EventBody>
-					<h4>{ event.name }</h4>
+			<Link to = {`/events/${ event.slug }`}>
+				<EventWrapper>
+					<EventBody>
+						<h4>{ event.name }</h4>
 
-					<EventDate>{ Moment(event.date).format('Do MMMM YYYY') }, { event.location }</EventDate>
+						<EventDate>{ Moment(event.date).format('Do MMMM YYYY') }, { event.location }</EventDate>
 
-					<EventRole>{ event.role }</EventRole>
+						<EventRole>{ event.role }</EventRole>
 
-					{ 
-						condensed
-						? null
-						: <div>{ event.description }</div>
-					}
-				</EventBody>
+						{ 
+							condensed
+							? null
+							: <div>{ event.description }</div>
+						}
+					</EventBody>
 
-				<EventImage src={ event.image.url }/>
-			</Event>
+					<EventImage src={ event.image.url }/>
+				</EventWrapper>
+			</Link>
 		);
 	})
 };

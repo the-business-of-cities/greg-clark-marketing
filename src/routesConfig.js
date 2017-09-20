@@ -3,6 +3,7 @@ import NotFound from "./components/pages/404";
 
 import Home from "./components/pages/Home";
 import Events from "./components/pages/Events";
+import Event from "./components/pages/Event";
 import Generic from "./components/pages/Generic";
 
 import data from "src/data";
@@ -18,11 +19,24 @@ const routesConfig = [
 		exact: true,
 		show: false,
 	},
+];
+
+data.events.forEach(o => {
+	routesConfig.push({
+		path: "/events/" + o.slug,
+		component: Event,
+		title: o.name,
+		exact: true,
+		show: false,
+		event: o,
+	})
+})
+
+routesConfig.push(
 	{
 		path: "/events",
 		title: "Events",
 		component: Events,
-		exact: true,
 	},
 	{
 		path: "/data",
@@ -36,7 +50,7 @@ const routesConfig = [
 		component: Data(rawdata),
 		show: false,
 	},
-];
+);
 
 data.navLinks.forEach(o => {
 	routesConfig.push({

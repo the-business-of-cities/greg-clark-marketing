@@ -71,9 +71,11 @@ const navLinks = (
 	))
 );
 
-const pages = dataObj.page.map(R.omit([ "content", ]));
+const pages = dataObj.page.map( R.omit([ "content", ]) );
 
-const events = dataObj.event.map(R.omit([ "content", ]));
+const events = dataObj.event.map( R.pipe(
+	adjustFields("name", "slug", slugify),
+) );
 
 // --------------------------------------------------
 
