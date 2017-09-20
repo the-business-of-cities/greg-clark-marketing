@@ -1,8 +1,10 @@
 import { Container, TextCell, } from "src/components/common";
 
-const Generic = ({ html, }) => (
+const Generic = ({ title, html, }) => (
 	<Container>
 		<TextCell>
+			<h1>{ title }</h1>
+
 			<div dangerouslySetInnerHTML = {{
 				__html: html,
 			}}/>
