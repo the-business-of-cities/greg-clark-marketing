@@ -79,7 +79,7 @@ const Publications = () => (
 		<TilesWrapper className = "masonry-items">
 			{
 				data.publications
-				.map(props => <PublicationTile { ...props } key = { props.slug }/>)
+				.map((props, i) => <PublicationTile { ...props } key = { props.slug + i }/>)
 			}
 		</TilesWrapper>
 	</Container>

@@ -34,30 +34,61 @@ const enhance = compose(
 			image,
 			approximateDate,
 			category,
+			featured,
 		}) => {
-			space.createEntry("publication", {
-				fields: addLangKeys({
-					title,
-					description,
-					link,
-					image,
-					approximateDate,
-					category,
-				}),
-			})
+			(
+				image
+				? (
+					space.createAsset({
+						fields: addLangKeys({
+							file: image,
+						}),
+					})
+					.then(asset => asset.processForAllLocales())
+					.then(plog("asset"))
+				)
+				: Promise.resolve()
+			)
+			.then(asset => (
+				space.createEntry("publication", {
+					fields: addLangKeys({
+						title,
+						description,
+						link,
+						approximateDate,
+						category,
+						featured,
+						...(
+							asset
+							? {
+								image: {
+									sys: {
+										type: "Link",
+										linkType: "Asset",
+										id: asset.sys.id,
+									},
+								},
+							}
+							: {}
+						),
+					}),
+				})
+				.then(plog("entry"))
+			))			
 			.then(plog("then"));
 		},
 		onChangeXml: ({ setXml, }) => e => (setXml(e.target.value)),
-		onSubmitXml: ({ xml, space, }) => () => {
-			console.log("xml", xml);
+	}),
+	withHandlers({
+		onSubmitXml: ({ xml, space, createPublication, }) => () => {
 			const json = convert.xml2js(xml, {
 				compact: true,
 			});
 
-			const items = R.path([ "rss", "channel", "item", ])(json).splice(0,3);
+			const _items = R.path([ "rss", "channel", "item", ])(json);
+			const items = _items;
 
-
-			items.map(item => {
+			const inputs = items.map(item => {
 
 				// -- TITLE ----
 
@@ -74,6 +105,49 @@ const enhance = compose(
 					.match(/href="([^"]+)"/)[1]
 				);
 
+				// -- IMAGE ----
+
+				const imageUrl = (
+					(R.path(["content:encoded", "_cdata"])(item) || "")
+					.match(/src="([^"]+)"/)[1]
+				);
+
+				const image = (
+					imageUrl
+					? {
+						upload: imageUrl,
+						fileName: imageUrl.slice(imageUrl.lastIndexOf("/") + 1),
+						contentType: "image/jpeg",
+					}
+					: undefined
+				);
+
+				// -- DATE ----
+
+				let year = "";
+				const setYear = c => {
+					if (c._attributes.domain === "years") {
+						year = c._cdata;
+					}
+				}
+
+				if (item.category) {
+					if (item.category.forEach) {
+						item.category.forEach(setYear);
+					}
+					else {
+						setYear(item.category);
+					}
+				}
+
+				let approximateDate = "";
+				if (year) {
+					approximateDate = (new Date(parseInt(year,10), 0)).toISOString();
+				}
+				else {
+					approximateDate = (new Date()).toISOString();
+				}
+
 				// -- CATEGORY ----
 
 				const category = [];
@@ -83,37 +157,71 @@ const enhance = compose(
 					}
 				};
 
-				if (item.category.forEach) {
-					item.category.forEach(addCategory);
-				}
-				else {
-					addCategory(item.category);
+				if (item.category) {
+					if (item.category.forEach) {
+						item.category.forEach(addCategory);
+					}
+					else {
+						addCategory(item.category);
+					}
 				}
 
-				// --------------------------------------------------
+				// -- FEATURED ----
+
+				let featured = false;
+				const setFeatured = c => {
+					if (c._attributes.domain === "post_tag" && c._cdata === "featured") {
+						featured = true;
+					}
+				};
+
+				if (item.category) {
+					if (item.category.forEach) {
+						item.category.forEach(setFeatured);
+					}
+					else {
+						setFeatured(item.category);
+					}
+				}
+
+				// ----------------
 
 				console.log({
+					item,
+
 					title,
 					description,
 					link,
+					image,
+					approximateDate,
 					category,
+					featured,
 				});
-			})
 
+				if (featured) {
+					return {
+						title,
+						description,
+						link,
+						image,
+						approximateDate,
+						category,
+						featured,
+					};
+				}
+				else {
+					return null;
+				}
+			});
 
-
-			// space.createAsset({
-			// 	fields: addLangKeys({
-			// 		title: "Test asset",
-			// 		file: {
-			// 			contentType: "image/jpeg",
-			// 			fileName: "test.jpg",
-			// 			upload: "http://thebusinessofcities.com/wp-content/uploads/2014/08/Mumbai-Indias-global-City-image-266x200.jpg",
-			// 		},
-			// 	}),
-			// })
-			// .then(plog("then"))
-			// .catch(plog("catch"));
+			return inputs.reduce(
+				(p, input) => p.then(() => (
+					input
+					? createPublication(input)
+					: Promise.resolve()
+				)),
+				Promise.resolve()
+			);
 		},
 	}),
 	lifecycle({
@@ -127,7 +235,6 @@ const enhance = compose(
 			});			
 		},
 	}),
-	// logProps("import")
 );
 
 const Import = props => (
