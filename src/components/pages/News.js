@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import masonry from "masonry-layout";
 import { lifecycle, } from "recompose";
+import { Link, } from "react-router-dom";
 
 import data from "src/data";
 import { Container, TextCell, GridCell, SmartImg, LineCell, } from "src/components/common";
@@ -16,12 +17,8 @@ const doMasonry = () => {
 				itemSelector: ".masonry-item",
 				percentPosition: true,
 			});
-			// const imagesloadedInstance = new imagesloaded(
-			// 	".masonry-items",
-			// 	() => masonryInstance.layout()
-			// );
 		},
-		0
+		500
 	);
 };
 
@@ -36,52 +33,53 @@ const TilesWrapper = styled.div`
 `;
 
 const TileWrapper = styled(GridCell)`
-	width: 33.3333333333333%;
+	width: 50%;
 	float: left;
 `;
 
 const TileInner = styled(GridCell)`
 	${mixins.shadow(1)}
 	background-color: white;
-	padding: 0.5em;
 `;
 
-const TileTitle = styled.div`
-	font-weight: bold;
-	line-height: 1.1;
-	margin-top: 0.75em;
+const TileTitle = styled.h2`
 `;
 
-const PublicationTile = ({
+const NewsTile = ({
 	image,
 	title,
 	link,
+	html,
+	slug,
 }) => (
 	<TileWrapper className = "masonry-item">
-		<a href = { link }>
-			<TileInner>
-				<GridCell>
-					<SmartImg { ...image }/>
+		<TileInner>
+			<TextCell>		
+				<Link to = { "/news/" + slug }>
 					<TileTitle>{ title }</TileTitle>
-				</GridCell>
-
-			</TileInner>
-		</a>
+				</Link>
+				{
+					image
+					? <SmartImg { ...image }/>
+					: null
+				}
+				<div dangerouslySetInnerHTML = {{
+					__html: html,
+				}}/>
+			</TextCell>
+		</TileInner>		
 	</TileWrapper>
 );
 
 const Publications = () => (
 	<Container>
 		<TextCell>
-			<div dangerouslySetInnerHTML = {{
-				__html: data.pagesMap.publications.html,
-			}}/>
+			<h1>News</h1>
 		</TextCell>
-		<LineCell/>
 		<TilesWrapper className = "masonry-items">
 			{
-				data.publications
-				.map((props, i) => <PublicationTile { ...props } key = { props.slug + i }/>)
+				data.news
+				.map((props, i) => <NewsTile { ...props } key = { props.slug + i }/>)
 			}
 		</TilesWrapper>
 	</Container>

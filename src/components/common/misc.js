@@ -188,3 +188,20 @@ export const Only = objMap(vars.bps, (key, val) => ({ children, }) =>
 		children = { children }
 	/>,
 );
+
+export const Line = styled.div`
+	height: 1.5px;
+	width: 100%;
+	background-color: ${R.path([ "theme", "text", ])};
+`;
+
+const LineCellWrapper = styled(GridCell)`
+	padding-left: 0;
+	padding-right: 0;
+`;
+
+export const LineCell = () => (
+	<LineCellWrapper>
+		<Line/>
+	</LineCellWrapper>
+);

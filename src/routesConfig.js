@@ -7,6 +7,8 @@ import Event from "./components/pages/Event";
 import Generic from "./components/pages/Generic";
 import Publications from "./components/pages/Publications";
 import Import from "./components/pages/Import";
+import News from "./components/pages/News";
+import NewsPost from "./components/pages/NewsPost";
 
 import data from "src/data";
 import rawdata from "src/rawdata";
@@ -32,13 +34,33 @@ data.events.forEach(o => {
 		show: false,
 		event: o,
 	})
-})
+});
+
+data.news.forEach(o => {
+	routesConfig.push({
+		path: "/news/" + o.slug,
+		component: Generic,
+		exact: true,
+		show: false,
+		...o,
+	})
+});
 
 routesConfig.push(
 	{
 		path: "/events",
 		title: "Events",
 		component: Events,
+	},
+	{
+		path: "/publications",
+		title: "Publications",
+		component: Publications,
+	},
+	{
+		path: "/news",
+		title: "News",
+		component: News,
 	},
 	{
 		path: "/data",
@@ -60,13 +82,6 @@ data.navLinks.forEach(o => {
 		component: Generic,
 		show: true,
 	})
-})
-
-routesConfig.push({
-	path: "/publications",
-	title: "Publications",
-	component: Publications,
-	show: true,
 });
 
 routesConfig.push({

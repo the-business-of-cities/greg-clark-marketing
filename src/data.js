@@ -27,29 +27,38 @@ const makeMapUsingSlugs = list => {
 	), {} )
 };
 
-const shapeImageField = ({
-	fields: {
-		file: {
-			url,
-			details: {
-				size,
-				image: {
-					width,
-					height,
+const shapeImageField = o => {
+	if (o.fields) {
+		const {
+			fields: {
+				file: {
+					url,
+					details: {
+						size,
+						image: {
+							width,
+							height,
+						},
+					},
+					fileName,
+					contentType,
 				},
 			},
-			fileName,
+		} = o;
+
+		return {
 			contentType,
-		},
-	},
-}) => ({
-	contentType,
-	fileName,
-	height,
-	size,
-	url,
-	width,
-});
+			fileName,
+			height,
+			size,
+			url,
+			width,
+		};
+	}
+	else {
+		return o;
+	}
+};
 
 const defaultFieldShaping = R.pipe(
 	adjustFields("image", "image", shapeImageField),
@@ -60,7 +69,10 @@ const defaultFieldShaping = R.pipe(
 const dataObj = {};
 rawdata.items.forEach(item => {
 	const itemType = item.sys.contentType.sys.id;
-	const shapedItem = defaultFieldShaping(item.fields);
+	const shapedItem = {
+		...defaultFieldShaping(item.fields),
+		createdAt: item.sys.createdAt,
+	};
 
 	dataObj[itemType] = (
 		dataObj[itemType]
@@ -92,9 +104,15 @@ const publications = (
 	)
 );
 
+const news = (
+	dataObj.news
+	.sort((l,r) => (new Date(r.originalDate || r.createdAt) - new Date(l.originalDate || l.createdAt)))
+);
+const newsMap = makeMapUsingSlugs(news);
+
 const events = dataObj.event.map( R.pipe(
 	adjustFields("name", "slug", slugify),
-) );
+));
 
 // --------------------------------------------------
 
@@ -105,6 +123,8 @@ const retval = {
 	publications,
 	pagesMap,
 	events,
+	news,
+	newsMap,
 };
 
 export default retval;
