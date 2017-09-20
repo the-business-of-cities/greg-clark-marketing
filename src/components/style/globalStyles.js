@@ -21,7 +21,7 @@ const defaultGlobalStyles = css`
 	}
 
 	body {
-		background: white;
+		background: ${ vars.colors.bg };
 		font-family: "Open Sans", Helvetica, Arial, sans-serif;
 		${ mixins.bpEach("font-size", vars.font.size) }
 		color: ${ vars.colors.text };
@@ -53,7 +53,11 @@ const additionalGlobalStyles = css`
 	@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
 	ul, ol, li {
-		${ mixins.bpEach("margin", textMargins) }
+		${ mixins.bpEach("margin", textMargins) };
+	}
+
+	ul, ol, li {
+		margin-left: 1.5em;
 	}
 `;
 

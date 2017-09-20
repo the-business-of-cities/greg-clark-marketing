@@ -3,34 +3,46 @@ import styled from "styled-components";
 
 import * as mixins from "../style/mixins";
 import * as vars from "../style/vars";
+import { objMap, } from "src/lib/util";
 import data from "src/data";
 
 import { Icon, } from "./misc";
 
 // --------------------------------------------------
 
+
 const Wrapper = styled.footer`
 	background-color: ${R.path([ "theme", "footer", ])};
-	${ mixins.bpEither("height", vars.dim.footer.height) }
-	${ mixins.bpEither("padding", vars.dim.nav.margin) };
-	align-items: center;
-	border-top: 1.5px solid ${ R.path([ "theme", "nav", ]) };
-	bottom: 0;
-	display: flex;
-	justify-content: space-between;
-	left: 0;
-	overflow: hidden;
 	position: absolute;
 	right: 0;
+	left: 0;
+	bottom: 0;
+	overflow: hidden;
+`;
+
+const Inner = styled.div`
+	${ mixins.bpEither("height", vars.dim.footer.height) }
+	${ mixins.bpEither("padding", vars.dim.nav.margin) };
+	align-items: center;	
+	display: flex;
+	justify-content: space-between;	
+	color: white;
+	max-width: ${vars.bps.lg.min}px;
+	margin: 0 auto;
+
 	${mixins.xs`
 		flex-wrap: wrap;
 		height: auto;
 	`}
-	
+	${mixins.bp.sm.min`
+		padding-top: 0;
+		padding-bottom: 0;
+	`}
 `;
 
 const FooterSection = styled.div`
 	text-align: center;
+
 	${mixins.xs`
 		width: 100%;
 		padding: 4px;
@@ -39,6 +51,7 @@ const FooterSection = styled.div`
 
 const Copyright = styled(FooterSection)`
 	order: -1;
+
 	${mixins.xs`
 		order: 0;
 	`}
@@ -50,8 +63,13 @@ const Contact = styled(FooterSection)`
 		order: -1;
 	`}
 
-	a:hover {
-		text-decoration: underline;
+	a {
+		color: white;
+
+		&:hover {
+			color: #ddd;
+			text-decoration: underline;
+		}
 	}
 `;
 
@@ -67,7 +85,12 @@ const Social = styled(FooterSection)`
 	`}
 
 	a {
+		color: white;
 		margin: 0 0.25em;
+
+		&:hover {
+			color: #ddd;
+		}
 	}
 `;
 
@@ -99,24 +122,26 @@ const socialLinks = [ "twitter", "facebook", "youtube", "linkedin", ];
 
 const Footer = () =>
 	<Wrapper>
-		<Copyright>{ data.footerText }</Copyright>
+		<Inner>
+			<Copyright>{ data.footerText }</Copyright>
 
-		<Contact>
-			Email: <a href = { "mailto:" + data.email }>{ data.email }</a>
-			<ReallySmallScreens></ReallySmallScreens>
-			<OtherScreens> | </OtherScreens>
-			Tel: <a href = { "tel:" + data.telephone }>{ formatTelNumber(data.telephone) }</a>
-		</Contact>
+			<Contact>
+				Email: <a href = { "mailto:" + data.email }>{ data.email }</a>
+				<ReallySmallScreens></ReallySmallScreens>
+				<OtherScreens> | </OtherScreens>
+				Tel: <a href = { "tel:" + data.telephone }>{ formatTelNumber(data.telephone) }</a>
+			</Contact>
 
-		<Social>
-			{
-				socialLinks.map(str => (
-					data[str + "Link"]
-					? <a href = { data[str + "Link"] } key = { str }><Icon type = { str }/></a>
-					: null
-				))
-			}
-		</Social>
+			<Social>
+				{
+					socialLinks.map(str => (
+						data[str + "Link"]
+						? <a href = { data[str + "Link"] } key = { str }><Icon type = { str }/></a>
+						: null
+					))
+				}
+			</Social>
+		</Inner>
 	</Wrapper>;
 
 export default Footer;

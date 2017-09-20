@@ -10,6 +10,8 @@ import Links from "./Links";
 import Burger from "./Burger";
 import Fade from "../Fade";
 
+import Data from "src/data";
+
 // --------------------------------------------------
 
 const Wrapper = styled.nav`
@@ -34,6 +36,8 @@ const Inner = styled.div`
 	width: 100%;
 	height: 100%;
 	position: relative;
+	max-width: ${vars.bps.lg.min}px;
+	margin: 0 auto;
 `;
 
 const MobileStuff = styled.div`
@@ -60,7 +64,7 @@ const BurgerWrapper = styled.div`
 
 const LogoText = styled.div`
 	font-size: 2em;
-	font-family: ${vars.font.title.family};
+	font-family: ${ vars.font.title.family };
 `;
 
 const LogoImage = styled.img`
@@ -73,7 +77,7 @@ const Logo = props =>
 		{
 			true
 			? <LogoText>Greg Clark (Urbanist)</LogoText>
-			: <LogoImage src = "/img/igpf-logo.png"/>
+			: <LogoImage src = { Data.image }/>
 		}
 	</LogoWrapper>;
 
@@ -147,9 +151,9 @@ const Nav = ({ open, closeMenu, toggleMenu, }) => (
 				</BurgerWrapper>
 			</MobileStuff>
 			
-			<Line/>
 			<Logo />
 		</Inner>
+		<Line/>
 	</Wrapper>
 );
 

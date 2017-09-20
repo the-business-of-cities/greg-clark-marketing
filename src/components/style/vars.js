@@ -17,10 +17,14 @@ export const bps = breakpoints;
 
 export const colors = {
 	text: "#444",
-	footer: "#fff",
+	//nav: "#333",
+	nav: "#041C3A",
+	//footer: "#333",
+	footer: "#041C3A",
+	bg: "#FCDABF",
+	//background: #FFEFDB;
 	grey: "rgba(0,0,0,0.2)",
 	lines: "rgba(0,0,0,0.2)",
-	nav: "#333",
 	borders: "rgba(0,0,0,0.2)",
 };
 
@@ -60,7 +64,7 @@ export const dimensions = {
 		},
 		margin: {
 			xs: "10px",
-			other: "30px",
+			other: (gutter.lg * 1.5) + "px",
 		},
 		logoHeight: {
 			xs: "40px",
