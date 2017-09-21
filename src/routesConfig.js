@@ -21,7 +21,7 @@ const routesConfig = [
 		title: "Home",
 		component: Home,
 		exact: true,
-		show: false,
+		show: true,
 	},
 ];
 

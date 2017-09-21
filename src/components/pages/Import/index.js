@@ -43,8 +43,10 @@ const Import = props => (
 	<Container>
 		<GridCell>
 			<Input onChange = { props.onChangeXml }/>
+
 			<div>
 				<button onClick = { props.onSubmitPublicationsXml }>Import Publications</button>
+				
 				<button onClick = { props.onSubmitNewsXml }>Import News</button>
 			</div>
 		</GridCell>

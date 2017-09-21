@@ -49,14 +49,6 @@ const FooterSection = styled.div`
 	`}
 `;
 
-const Copyright = styled(FooterSection)`
-	order: -1;
-
-	${mixins.xs`
-		order: 0;
-	`}
-`;
-
 const Contact = styled(FooterSection)`
 	order: 0;
 	${mixins.xs`
@@ -88,6 +80,11 @@ const Social = styled(FooterSection)`
 		color: white;
 		margin: 0 0.25em;
 
+		i,
+		&:visited {
+			color: white !important;
+		}
+
 		&:hover {
 			color: #ddd;
 		}
@@ -95,13 +92,13 @@ const Social = styled(FooterSection)`
 `;
 
 const ReallySmallScreens = styled.br`
-	${mixins.bp.min(350)`
+	${mixins.bp.min(500)`
 		display: none;
 	`}
 `;
 
 const OtherScreens = styled.span`
-	${mixins.bp.max(349)`
+	${mixins.bp.max(499)`
 		display: none;
 	`}
 `;
@@ -123,12 +120,19 @@ const socialLinks = [ "twitter", "facebook", "youtube", "linkedin", ];
 const Footer = () =>
 	<Wrapper>
 		<Inner>
-			<Copyright>{ data.footerText }</Copyright>
-
 			<Contact>
-				Email: <a href = { "mailto:" + data.email }>{ data.email }</a>
+				{ data.footerText }
+
 				<ReallySmallScreens></ReallySmallScreens>
+
 				<OtherScreens> | </OtherScreens>
+
+				Email: <a href = { "mailto:" + data.email }>{ data.email }</a>
+
+				<ReallySmallScreens></ReallySmallScreens>
+
+				<OtherScreens> | </OtherScreens>
+				
 				Tel: <a href = { "tel:" + data.telephone }>{ formatTelNumber(data.telephone) }</a>
 			</Contact>
 

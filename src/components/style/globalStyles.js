@@ -42,6 +42,11 @@ const defaultGlobalStyles = css`
 		${ mixins.bpEach("margin", textMargins) }
 	}
 
+	h1 {
+		display: inline-block;
+		border-bottom: 0.5em solid ${ vars.colors.bgdark };
+	}
+
 	img {
 		vertical-align: bottom;
 	}
@@ -50,7 +55,18 @@ const defaultGlobalStyles = css`
 // --------------------------------------------------
 
 const additionalGlobalStyles = css`
-	@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+	@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lora');
+
+	p, ul, ol, li {
+		font-family: "Lora", serif;
+		font-size: 1.05em;
+	}
+
+	p {
+		img {
+			max-width: 100%;
+		}
+	}
 
 	ul, ol, li {
 		${ mixins.bpEach("margin", textMargins) };
