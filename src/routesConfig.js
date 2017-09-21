@@ -19,7 +19,7 @@ const routesConfig = [
 		title: "Home",
 		component: Home,
 		exact: true,
-		show: false,
+		show: true,
 	},
 ];
 
@@ -39,6 +39,11 @@ routesConfig.push(
 		path: "/events",
 		title: "Events",
 		component: Events,
+	},
+	{
+		path: "/publications",
+		title: "Publications",
+		component: Publications,
 	},
 	{
 		path: "/data",
@@ -61,13 +66,6 @@ data.navLinks.forEach(o => {
 		show: true,
 	})
 })
-
-routesConfig.push({
-	path: "/publications",
-	title: "Publications",
-	component: Publications,
-	show: true,
-});
 
 routesConfig.push({
 	path: "/import",

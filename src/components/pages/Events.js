@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import Moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 
-import { 
+import {
+	PageWrapper,
+	PageBody,
+	PageImage,
 	Container, 
-	TextCell, 
-	GridCell,
+	TextCell,
 } from "src/components/common";
 
 import * as vars from "src/components/style/vars";
@@ -25,21 +27,26 @@ const EventWrapper = styled.div`
 `;
 
 const EventImage = styled.img`
-	position: absolute;
-	top: 0;
-	right: 0;
 	bottom: 0;
-	left: 0;
+	left: 3em;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	top: 0;
 	width: 100%;
-	z-index: -1;
+	z-index: 0;
+	opacity: 0.7;
 `;
 
 const EventBody = styled.div`
-	margin-top: 1em;
-	margin-bottom: 3em;
-	width: 65%;
 	background: ${ vars.colors.bg };
+	margin-bottom: 3em;
+	margin-top: 1em;
 	padding: 1em;
+	position: relative;
+	width: 65%;
+	z-index: 2;
+	background: ${ vars.colors.bgdark };
 
 	h4 {
 		margin: 0;
@@ -89,28 +96,34 @@ const orderEvents = (events, future, condensed, ) => {
 	})
 };
 
-const Events = ({ html, }) => (
-	<Container>
-		<TextCell>
-			<h1>{ Data.pagesMap.events.title }</h1>
+const Events = () => (
+	<PageWrapper>
+		<Container>
+			<TextCell>
+				<PageBody>
+					<h1>{ Data.pagesMap.events.title }</h1>
 
-			<div dangerouslySetInnerHTML = {{
-				__html: Data.pagesMap.events.html,
-			}}/>
+					<div dangerouslySetInnerHTML = {{
+						__html: Data.pagesMap.events.html,
+					}}/>
 
-			<h2>Upcoming events</h2>
+					<h2>Upcoming events</h2>
 
-			{	
-				orderEvents(Data.events, true, false)
-			}
+					{	
+						orderEvents(Data.events, true, false)
+					}
 
-			<h2>Past events</h2>
+					<h2>Past events</h2>
 
-			{	
-				orderEvents(Data.events, false, true)
-			}
-		</TextCell>
-	</Container>
+					{	
+						orderEvents(Data.events, false, true)
+					}
+				</PageBody>
+			</TextCell>
+		</Container>
+		
+		<PageImage src = { Data.pagesMap.events.image.url }/>
+	</PageWrapper>
 );
 
 export default Events;

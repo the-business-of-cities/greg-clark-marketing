@@ -1,15 +1,35 @@
-import { Container, TextCell, } from "src/components/common";
+import styled from "styled-components";
 
-const Generic = ({ title, html, }) => (
-	<Container>
-		<TextCell>
-			<h1>{ title }</h1>
+import { 
+	PageWrapper,
+	PageBody,
+	PageImage,
+	Container,
+	TextCell,
+} from "src/components/common";
 
-			<div dangerouslySetInnerHTML = {{
-				__html: html,
-			}}/>
-		</TextCell>
-	</Container>
+// --------------------------------------------------
+
+
+
+// --------------------------------------------------
+
+const Generic = ( page ) => (
+	<PageWrapper>
+		<Container>
+			<TextCell>
+				<PageBody>
+					<h1>{ page.title }</h1>
+
+					<div dangerouslySetInnerHTML = {{
+						__html: page.html,
+					}}/>
+				</PageBody>
+			</TextCell>
+		</Container>
+		
+		<PageImage src = { page.image.url }/>
+	</PageWrapper>
 );
 
 export default Generic;

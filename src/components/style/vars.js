@@ -17,11 +17,12 @@ export const bps = breakpoints;
 
 export const colors = {
 	text: "#444",
-	//nav: "#333",
-	nav: "#041C3A",
-	//footer: "#333",
-	footer: "#041C3A",
+	nav: "#333",
+	//nav: "#041C3A",
+	footer: "#333",
+	//footer: "#041C3A",
 	bg: "#FCDABF",
+	bgdark: "#E4C1A3",
 	//background: #FFEFDB;
 	grey: "rgba(0,0,0,0.2)",
 	lines: "rgba(0,0,0,0.2)",

@@ -24,7 +24,7 @@ const Wrapper = styled.nav`
 	position: fixed;
 	right: 0;
 	top: 0;
-	z-index: 2;
+	z-index: 10;
 	color: white;
 
 	& a {
@@ -65,6 +65,7 @@ const BurgerWrapper = styled.div`
 const LogoText = styled.div`
 	font-size: 2em;
 	font-family: ${ vars.font.title.family };
+	text-transform: uppercase;
 `;
 
 const LogoImage = styled.img`
@@ -76,7 +77,7 @@ const Logo = props =>
 	<LogoWrapper to = "/">
 		{
 			true
-			? <LogoText>Greg Clark (Urbanist)</LogoText>
+			? <LogoText>Prof Greg Clark CBE</LogoText>
 			: <LogoImage src = { Data.image }/>
 		}
 	</LogoWrapper>;
@@ -97,8 +98,6 @@ const LogoWrapper = styled(IndexLink)`
 	${ mixins.bp.sm.min`
 		bottom: ${vars.dim.nav.linksHeight};
 	`}
-
-
 `;
 
 const Line = styled.div`

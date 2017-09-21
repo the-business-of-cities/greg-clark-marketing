@@ -8,10 +8,37 @@ import { objMap, } from "../../lib/util";
 
 // --------------------------------------------------
 
+export const PageWrapper = styled.div`
+	position: relative;
+	overflow: hidden;
+`;
+
+export const PageImage = styled.img`
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+	opacity: 0.5;
+`;
+
+export const PageBody = styled.div`
+	background: ${ vars.colors.bg };
+	margin-top: 6em;
+	margin-bottom: 3em;
+	padding: 1.5em;
+`;
+
+// --------------------------------------------------
+
 export const GridCell = styled.div`
 	${ mixins.bpEach("padding", vars.dim.gutter.half) } ${ p =>
 	p.flex ? `flex: ${ p.flex };` : "" };
 `;
+
+// --------------------------------------------------
 
 const textBoxMargins = objMap(vars.font.size, (key, val) => `-${val} auto`);
 
@@ -29,6 +56,8 @@ export const TextCell = props =>
 		</TextBox>
 	</GridCell>;
 
+// --------------------------------------------------
+
 export const Container = styled.div`
 	${ mixins.bpEach("padding", vars.dim.gutter.container) } ${p =>
 	p.fullWidth ? "" : `max-width: ${p.maxWidth || vars.bps.lg.min}px`};
@@ -38,6 +67,8 @@ export const Container = styled.div`
 		? `border-bottom: 1px solid ${vars.colors.lines};`
 		: ""} ${p => (p.center ? "text-align: center;" : "")};
 `;
+
+// --------------------------------------------------
 
 const bgTint = 0.3;
 export const Bg = styled.div`
@@ -54,6 +85,8 @@ export const Bg = styled.div`
 			: ""} ${p => (p.color ? `background-color: ${p.color};` : "")};
 `;
 
+// --------------------------------------------------
+
 export const Para = props =>
 	<div>
 		{ props.children.split("\n").map((p, i) =>
@@ -62,6 +95,8 @@ export const Para = props =>
 			</p>,
 		) }
 	</div>;
+
+// --------------------------------------------------
 
 export const FullWidthImg = styled.img`
 	width: 100%;
