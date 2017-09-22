@@ -74,18 +74,15 @@ export const onSubmitNewsXml = ({ xml, createNews, }) => () => {
 	const inputs = items.map(item => {
 
 		// -- TITLE ----
-
 		const title = R.path([ "title", "_text", ])(item) || "";
 
 		// -- CONTENT ----
-
 		const content = toMarkdown(
 			(R.path(["content:encoded", "_cdata"])(item) || "")
 			.replace(/<img([^\>]+)>/g, " ")
 		);
 
 		// -- IMAGE ----
-
 		const imageUrl = ((
 			(R.path(["content:encoded", "_cdata"])(item) || "")
 			.match(/src="([^"]+)"/)
@@ -102,14 +99,12 @@ export const onSubmitNewsXml = ({ xml, createNews, }) => () => {
 		);
 
 		// -- DATE ----
-
 		let originalDate = undefined;
 		if (item.pubDate && item.pubDate._text) {
 			originalDate = (new Date(item.pubDate._text)).toISOString();
 		}
 
 		// -- FEATURED ----
-
 		let featured = false;
 		const setFeatured = c => {
 			if (c._attributes.domain === "post_tag" && c._cdata === "featured") {
@@ -130,7 +125,6 @@ export const onSubmitNewsXml = ({ xml, createNews, }) => () => {
 
 		console.log({
 			item,
-
 			title,
 			content,
 			image,

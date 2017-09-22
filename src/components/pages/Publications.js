@@ -8,6 +8,10 @@ import {
 	PageWrapper,
 	PageBody,
 	PageImage,
+	TilesWrapper,
+	TileWrapper,
+	TileInner,
+	TileTitle,
 	Container,
 	TextCell,
 	GridCell,
@@ -41,40 +45,19 @@ const enhance = lifecycle({
 	},
 });
 
-const TilesWrapper = styled.div`
-	${mixins.clearfix}
-`;
-
-const TileWrapper = styled(GridCell)`
-	width: 33.3333333333333%;
-	${ mixins.xs`width: 100%` };
-	float: left;
-`;
-
-const TileInner = styled(GridCell)`
-	//background-color: white;
-	//border: 1px solid ${R.path(["theme", "borders",])};
-	//box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-	background: ${ vars.colors.bgdark };
-	${ mixins.bp.sm.min`padding : 0` };
-`;
-
-const TileTitle = styled.h3`
-	margin-top: 0;
-`;
-
 const PublicationTile = ({
 	image,
 	title,
 	link,
 }) => (
-	<TileWrapper className = "masonry-item">
+	<TileWrapper
+		className = "masonry-item"
+		small
+	>
 		<a href = { link }>
 			<TileInner>
 				<GridCell>
 					<SmartImg { ...image }/>
-
-					<TileTitle>{ title }</TileTitle>
 				</GridCell>
 
 				<TextCell>

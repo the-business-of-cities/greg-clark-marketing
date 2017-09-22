@@ -38,7 +38,7 @@ data.events.forEach(o => {
 
 data.news.forEach(o => {
 	routesConfig.push({
-		path: "/news/" + o.slug,
+		path: "/blog/" + o.slug,
 		component: Generic,
 		exact: true,
 		show: false,
@@ -58,8 +58,8 @@ routesConfig.push(
 		component: Publications,
 	},
 	{
-		path: "/news",
-		title: "News",
+		path: "/blog",
+		title: "Blog",
 		component: News,
 	},
 	{

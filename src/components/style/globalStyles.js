@@ -44,7 +44,7 @@ const defaultGlobalStyles = css`
 
 	h1 {
 		display: inline-block;
-		border-bottom: 0.5em solid ${ vars.colors.bgdark };
+		border-bottom: 0.33em solid ${ vars.colors.bgdark };
 	}
 
 	img {
@@ -57,9 +57,9 @@ const defaultGlobalStyles = css`
 const additionalGlobalStyles = css`
 	@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lora');
 
-	p, ul, ol, li {
+	p, ul, ol {
 		font-family: "Lora", serif;
-		font-size: 1.05em;
+		font-size: 1.2em;
 	}
 
 	p {

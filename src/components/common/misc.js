@@ -8,31 +8,6 @@ import { objMap, } from "../../lib/util";
 
 // --------------------------------------------------
 
-export const PageWrapper = styled.div`
-	position: relative;
-	overflow: hidden;
-`;
-
-export const PageImage = styled.img`
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	z-index: -1;
-	opacity: 0.5;
-`;
-
-export const PageBody = styled.div`
-	background: ${ vars.colors.bg };
-	margin-top: 6em;
-	margin-bottom: 3em;
-	padding: 1.5em;
-`;
-
-// --------------------------------------------------
-
 export const GridCell = styled.div`
 	${ mixins.bpEach("padding", vars.dim.gutter.half) } ${ p =>
 	p.flex ? `flex: ${ p.flex };` : "" };
@@ -240,3 +215,54 @@ export const LineCell = () => (
 		<Line/>
 	</LineCellWrapper>
 );
+
+// --------------------------------------------------
+
+export const PageWrapper = styled.div`
+	position: relative;
+	overflow: hidden;
+`;
+
+export const PageImage = styled.img`
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+	opacity: 0.5;
+`;
+
+export const PageBody = styled.div`
+	background: ${ vars.colors.bg };
+	margin-top: 6em;
+	margin-bottom: 3em;
+	padding: 1.5em;
+`;
+
+// --------------------------------------------------
+
+export const TilesWrapper = styled.div`
+	${ mixins.clearfix }
+`;
+
+export const TileWrapper = styled(GridCell)`
+	width: ${ props => props.small ? "33.3333333333333%" : "50%" };
+	${ mixins.xs`width: 100%` };
+	float: left;
+`;
+
+export const TileInner = styled(GridCell)`
+	//background-color: white;
+	//border: 1px solid ${R.path(["theme", "borders",])};
+	//box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+	background: ${ vars.colors.bgdark };
+	${ mixins.bp.sm.min`padding : 0` };
+`;
+
+export const TileTitle = styled.h3`
+	margin-top: 0;
+`;
+
+// --------------------------------------------------

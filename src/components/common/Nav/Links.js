@@ -71,7 +71,7 @@ const buttonStyle = [
 
 // should be Link
 const Button = styled(NavLink)`
-	color: ${R.path([ "theme", "logo1", ])};
+	color: ${ R.path([ "theme", "logo1", ]) };
 	font-size: 1.1em;
 
 	${ mixins.xs`${ buttonStyle[0] }` }
@@ -91,6 +91,7 @@ export default ({ close, open, }) =>
 					to = { path }
 					activeClassName = "active"
 					onClick = { close }
+					exact = { path === "/" }
 				>
 					{ title }
 				</Button>,

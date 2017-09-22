@@ -152,6 +152,7 @@ const Nav = ({ open, closeMenu, toggleMenu, }) => (
 			
 			<Logo />
 		</Inner>
+
 		<Line/>
 	</Wrapper>
 );

@@ -3,8 +3,21 @@ import masonry from "masonry-layout";
 import { lifecycle, } from "recompose";
 import { Link, } from "react-router-dom";
 
-import data from "src/data";
-import { Container, TextCell, GridCell, SmartImg, LineCell, } from "src/components/common";
+import Data from "src/data";
+import {
+	Container,
+	TextCell,
+	GridCell,
+	SmartImg,
+	PageWrapper,
+	PageBody,
+	PageImage,
+	TilesWrapper,
+	TileWrapper,
+	TileInner,
+	TileTitle,
+} from "src/components/common";
+
 import * as mixins from "src/components/style/mixins";
 import * as vars from "src/components/style/vars";
 
@@ -28,22 +41,7 @@ const enhance = lifecycle({
 	},
 });
 
-const TilesWrapper = styled.div`
-	${mixins.clearfix}
-`;
-
-const TileWrapper = styled(GridCell)`
-	width: 50%;
-	float: left;
-`;
-
-const TileInner = styled(GridCell)`
-	${mixins.shadow(1)}
-	background-color: white;
-`;
-
-const TileTitle = styled.h2`
-`;
+// --------------------------------------------------
 
 const NewsTile = ({
 	image,
@@ -53,16 +51,22 @@ const NewsTile = ({
 	slug,
 }) => (
 	<TileWrapper className = "masonry-item">
-		<TileInner>
-			<TextCell>		
-				<Link to = { "/news/" + slug }>
+		<TileInner>	
+			<GridCell>
+				<Link to = { "/blog/" + slug }>
+					{
+						image
+						? <SmartImg { ...image }/>
+						: null
+					}
+				</Link>
+			</GridCell>
+
+			<TextCell>
+				<Link to = { "/blog/" + slug }>
 					<TileTitle>{ title }</TileTitle>
 				</Link>
-				{
-					image
-					? <SmartImg { ...image }/>
-					: null
-				}
+
 				<div dangerouslySetInnerHTML = {{
 					__html: html,
 				}}/>
@@ -71,18 +75,31 @@ const NewsTile = ({
 	</TileWrapper>
 );
 
-const Publications = () => (
-	<Container>
-		<TextCell>
-			<h1>News</h1>
-		</TextCell>
-		<TilesWrapper className = "masonry-items">
-			{
-				data.news
-				.map((props, i) => <NewsTile { ...props } key = { props.slug + i }/>)
-			}
-		</TilesWrapper>
-	</Container>
+// --------------------------------------------------
+
+const Publications = ( page ) => (
+	<PageWrapper>
+		<Container>
+			<TextCell>
+				<PageBody>
+					<h1>{ Data.pagesMap.blog.title }</h1>
+
+					<div dangerouslySetInnerHTML = {{
+						__html: Data.pagesMap.blog.html,
+					}}/>
+
+					<TilesWrapper className = "masonry-items">
+						{
+							Data.news
+							.map((props, i) => <NewsTile { ...props } key = { props.slug + i }/>)
+						}
+					</TilesWrapper>
+				</PageBody>
+			</TextCell>
+		</Container>
+		
+		<PageImage src = { Data.pagesMap.blog.image.url }/>
+	</PageWrapper>
 );
 
 export default enhance(Publications);
