@@ -77,7 +77,7 @@ const Logo = props =>
 	<LogoWrapper to = "/">
 		{
 			true
-			? <LogoText>Prof Greg Clark CBE</LogoText>
+			? <LogoText>Prof Greg Clark</LogoText>
 			: <LogoImage src = { Data.image }/>
 		}
 	</LogoWrapper>;

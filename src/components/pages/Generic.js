@@ -8,6 +8,8 @@ import {
 	TextCell,
 } from "src/components/common";
 
+import Head from "src/components/common/Head";
+
 // --------------------------------------------------
 
 export const SecondaryImage = styled.div`
@@ -22,6 +24,10 @@ export const SecondaryImage = styled.div`
 
 const Generic = ( page ) => (
 	<PageWrapper>
+		<Head
+			pageData = { page }
+		/>
+
 		<Container>
 			<TextCell>
 				<PageBody>
@@ -32,6 +38,7 @@ const Generic = ( page ) => (
 						? <SecondaryImage><img src = { page.secondaryImage.url }/></SecondaryImage>
 						: null
 					}
+
 
 					<div dangerouslySetInnerHTML = {{
 						__html: page.html,

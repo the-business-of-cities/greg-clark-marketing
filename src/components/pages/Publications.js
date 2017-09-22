@@ -20,6 +20,8 @@ import {
 	SmartImg,
 } from "src/components/common";
 
+import Head from "src/components/common/Head";
+
 import * as mixins from "src/components/style/mixins";
 import * as vars from "src/components/style/vars";
 
@@ -79,6 +81,10 @@ const PublicationTile = ({
 
 const Publications = () => (
 	<PageWrapper>
+		<Head
+			pageData = { Data.pagesMap.publications }
+		/>
+
 		<Container>
 			<TextCell>
 				<PageBody>

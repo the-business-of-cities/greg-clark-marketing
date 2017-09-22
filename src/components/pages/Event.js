@@ -9,6 +9,8 @@ import {
 	TextCell, 
 } from "src/components/common";
 
+import Head from "src/components/common/Head";
+
 // --------------------------------------------------
 
 const EventDate = styled.div`
@@ -26,6 +28,8 @@ const EventRole = styled.div`
 
 const Event = ( { event, title, } ) => (
 	<PageWrapper>
+		<Head pageData = { null } />
+
 		<Container>
 			<TextCell>
 				<PageBody>

@@ -17,6 +17,8 @@ export const bps = breakpoints;
 
 export const colors = {
 	text: "#444",
+	link: "#405378",
+	linkHover: "#4D6491",
 	nav: "#333",
 	//nav: "#041C3A",
 	footer: "#333",
@@ -61,7 +63,7 @@ export const dimensions = {
 	nav: {
 		height: {
 			xs: "50px",
-			other: "96px",
+			other: "110px",
 		},
 		margin: {
 			xs: "10px",
@@ -71,7 +73,7 @@ export const dimensions = {
 			xs: "40px",
 			other: "60px",
 		},
-		linksHeight: "34px",
+		linksHeight: "42px",
 	},
 	footer: {
 		height: {
@@ -97,3 +99,10 @@ dimensions.gutter.container = {
 	xs: dimensions.gutter.full.xs,
 };
 export const dim = dimensions;
+
+export const meta = {
+	twitterUsername: "mcclowes",
+	twitterCreator: "codogoio",
+	googleAnalytics: "UA-89374864-3",
+	googleSearch: "YQs24--DxVBln2zZc8hPo1kZFoxzc2amoF6-QWkDe7k",
+};

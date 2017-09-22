@@ -56,7 +56,7 @@ const buttonStyle = [
 		height: ${ vars.dim.nav.linksHeight };
 		line-height: ${ vars.dim.nav.linksHeight };
 		padding: 0 0.75em;
-		font-size: 0.85em;
+		font-size: 0.8em;
 		text-transform: uppercase;
 
 		&.active {
@@ -72,7 +72,6 @@ const buttonStyle = [
 // should be Link
 const Button = styled(NavLink)`
 	color: ${ R.path([ "theme", "logo1", ]) };
-	font-size: 1.1em;
 
 	${ mixins.xs`${ buttonStyle[0] }` }
 	${ mixins.bp.sm.min`${buttonStyle[1] }` }

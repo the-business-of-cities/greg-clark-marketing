@@ -10,6 +10,8 @@ import {
 	TextCell,
 } from "src/components/common";
 
+import Head from "src/components/common/Head";
+
 import * as mixins from "../style/mixins";
 import * as vars from "src/components/style/vars";
 
@@ -76,7 +78,10 @@ const orderEvents = (events, future, condensed, ) => {
 	.filter( event => future ? Moment(event.date).diff(Moment()) >= 0 : Moment(event.date).diff(Moment()) < 0 )
 	.map( event => {
 		return (
-			<Link to = {`/events/${ event.slug }`}>
+			<Link 
+				to = {`/events/${ event.slug }`}
+				key = { event.date }
+			>
 				<EventWrapper>
 					<EventBody>
 						<h4>{ event.name }</h4>
@@ -101,6 +106,10 @@ const orderEvents = (events, future, condensed, ) => {
 
 const Events = () => (
 	<PageWrapper>
+		<Head
+			pageData = { Data.pagesMap.events }
+		/>
+
 		<Container>
 			<TextCell>
 				<PageBody>
