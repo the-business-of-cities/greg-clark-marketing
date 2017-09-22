@@ -35,7 +35,7 @@ const Event = ( { event, title, } ) => (
 
 					<EventRole>{ event.role }</EventRole>
 
-					<p>{ event.description }</p>
+					{/*<p>{ event.description }</p>*/}
 
 					<p>{ event.content }</p>
 				</PageBody>

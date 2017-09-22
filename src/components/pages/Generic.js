@@ -10,7 +10,13 @@ import {
 
 // --------------------------------------------------
 
+export const SecondaryImage = styled.div`
+	margin-top: -6.5em;
 
+	img {
+		width: 100%;
+	}
+`;
 
 // --------------------------------------------------
 
@@ -20,6 +26,12 @@ const Generic = ( page ) => (
 			<TextCell>
 				<PageBody>
 					<h1>{ page.title }</h1>
+
+					{
+						page.secondaryImage
+						? <SecondaryImage><img src = { page.secondaryImage.url }/></SecondaryImage>
+						: null
+					}
 
 					<div dangerouslySetInnerHTML = {{
 						__html: page.html,

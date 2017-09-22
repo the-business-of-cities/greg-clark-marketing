@@ -81,7 +81,12 @@ export const FullWidthImg = styled.img`
 export const SmartImg = styled.div`
 	width: 100%;
 	${p => (
-		p.height && p.width
+		p.height && p.width && p.height >= p.width
+		? `width: ${100 * ( p.width / p.height )}%;`
+		: "width: 100%;"
+	)}
+	${p => (
+		p.height && p.width && p.height <= p.width
 		? `padding-top: ${100 * (p.height / p.width)}%;`
 		: "padding-top: 100%;"
 	)}
@@ -90,6 +95,7 @@ export const SmartImg = styled.div`
 	background-size: cover;
 	background-position: center center;
 	background-repeat: norepeat;
+	margin-left: auto;
 `;
 
 const IconWrapper = styled.i`
@@ -239,6 +245,16 @@ export const PageBody = styled.div`
 	margin-top: 6em;
 	margin-bottom: 3em;
 	padding: 1.5em;
+
+	h1 {
+		background: ${ vars.colors.bg };
+		padding: 0 1.5em 0.5em 0;
+		position: relative;
+		z-index: 1;
+		margin-top: 0;
+
+		${ mixins.bp.sm.min`padding: 0 3em 0.5em 0` };
+	}
 `;
 
 // --------------------------------------------------
@@ -249,6 +265,7 @@ export const TilesWrapper = styled.div`
 
 export const TileWrapper = styled(GridCell)`
 	width: ${ props => props.small ? "33.3333333333333%" : "50%" };
+	width: 50%;
 	${ mixins.xs`width: 100%` };
 	float: left;
 `;
@@ -257,12 +274,41 @@ export const TileInner = styled(GridCell)`
 	//background-color: white;
 	//border: 1px solid ${R.path(["theme", "borders",])};
 	//box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-	background: ${ vars.colors.bgdark };
+	position: relative;
 	${ mixins.bp.sm.min`padding : 0` };
+	margin-bottom: 1em;
+`;
+
+export const TileContent = styled.div`
+	background: ${ vars.colors.bgdark };
+	margin-top: -2em;
+	left: 0;
+	margin-right: 1.5em;
+	margin-bottom: 1em;
+	padding: 0.5em 1em;
+
+	p { 
+		font-size: 0.95em 
+	}
+`;
+
+export const TileImage = styled.div`
+	margin-left: 1.5em;
 `;
 
 export const TileTitle = styled.h3`
-	margin-top: 0;
+	:hover, :active {
+		opacity: 0.7;
+	}
+
+	:after {
+		margin-top: 0.5em;
+		//margin-bottom: 12px;
+		content: '';
+		display: block;
+		width: 5em;
+		border-bottom: 0.4em solid #333;
+	}
 `;
 
 // --------------------------------------------------

@@ -11,7 +11,9 @@ import {
 	TilesWrapper,
 	TileWrapper,
 	TileInner,
+	TileImage,
 	TileTitle,
+	TileContent,
 	Container,
 	TextCell,
 	GridCell,
@@ -49,22 +51,29 @@ const PublicationTile = ({
 	image,
 	title,
 	link,
+	description,
 }) => (
 	<TileWrapper
 		className = "masonry-item"
 		small
 	>
-		<a href = { link }>
-			<TileInner>
-				<GridCell>
+		<TileInner>
+			<a href = { link }>
+				<TileImage>
 					<SmartImg { ...image }/>
-				</GridCell>
+				</TileImage>
+			</a>
 
-				<TextCell>
+			<TileContent>
+				<a href = { link }>
 					<TileTitle>{ title }</TileTitle>
-				</TextCell>
-			</TileInner>
-		</a>
+				</a>
+
+				<div dangerouslySetInnerHTML = {{
+					__html: description,
+				}}/>
+			</TileContent>
+		</TileInner>
 	</TileWrapper>
 );
 
@@ -78,6 +87,8 @@ const Publications = () => (
 					<div dangerouslySetInnerHTML = {{
 						__html: Data.pagesMap.publications.html,
 					}}/>
+
+					<h2>Recent Publications</h2>
 
 					<TilesWrapper className = "masonry-items">
 						{

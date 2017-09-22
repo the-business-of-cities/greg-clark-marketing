@@ -10,6 +10,7 @@ import {
 	TextCell,
 } from "src/components/common";
 
+import * as mixins from "../style/mixins";
 import * as vars from "src/components/style/vars";
 
 import Data from "src/data";
@@ -47,6 +48,8 @@ const EventBody = styled.div`
 	width: 65%;
 	z-index: 2;
 	background: ${ vars.colors.bgdark };
+
+	${ mixins.xs`width: 80%` };
 
 	h4 {
 		margin: 0;

@@ -42,9 +42,20 @@ const defaultGlobalStyles = css`
 		${ mixins.bpEach("margin", textMargins) }
 	}
 
-	h1 {
+	h1,
+	h2,
+	h3 {
 		display: inline-block;
-		border-bottom: 0.33em solid ${ vars.colors.bgdark };
+		//border-bottom: 0.33em solid ${ vars.colors.bgdark };
+
+		:after {
+			margin-top: 0.5em;
+			//margin-bottom: 12px;
+			content: '';
+			display: block;
+			width: 5em;
+			border-bottom: 0.4em solid ${ vars.colors.bgdark };
+		}
 	}
 
 	img {

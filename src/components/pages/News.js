@@ -16,6 +16,8 @@ import {
 	TileWrapper,
 	TileInner,
 	TileTitle,
+	TileImage,
+	TileContent,
 } from "src/components/common";
 
 import * as mixins from "src/components/style/mixins";
@@ -47,30 +49,24 @@ const NewsTile = ({
 	image,
 	title,
 	link,
-	html,
+	description,
 	slug,
 }) => (
 	<TileWrapper className = "masonry-item">
 		<TileInner>	
-			<GridCell>
-				<Link to = { "/blog/" + slug }>
-					{
-						image
-						? <SmartImg { ...image }/>
-						: null
-					}
-				</Link>
-			</GridCell>
+			<Link to = { link ? link : "/blog/" + slug }>
+				<TileImage>
+					<SmartImg { ...image }/>
+				</TileImage>
+			</Link>
 
-			<TextCell>
-				<Link to = { "/blog/" + slug }>
+			<TileContent>
+				<Link to = { link ? link : "/blog/" + slug }>
 					<TileTitle>{ title }</TileTitle>
 				</Link>
 
-				<div dangerouslySetInnerHTML = {{
-					__html: html,
-				}}/>
-			</TextCell>
+				<div>{ description }</div>
+			</TileContent>
 		</TileInner>		
 	</TileWrapper>
 );
@@ -87,6 +83,8 @@ const Publications = ( page ) => (
 					<div dangerouslySetInnerHTML = {{
 						__html: Data.pagesMap.blog.html,
 					}}/>
+
+					<h2>Recent Posts</h2>
 
 					<TilesWrapper className = "masonry-items">
 						{

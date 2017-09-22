@@ -62,6 +62,8 @@ const shapeImageField = o => {
 
 const defaultFieldShaping = R.pipe(
 	adjustFields("image", "image", shapeImageField),
+	adjustFields("secondaryImage", "secondaryImage", shapeImageField),
+	adjustFields("homeImage", "homeImage", shapeImageField),
 	adjustFields("title", "slug", slugify),
 	adjustFields("content", "html", marked),
 );
