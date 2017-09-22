@@ -9,11 +9,8 @@ import Data from "src/data";
 const Head = ( { pageData } ) => (
 	<Helmet>
 		<meta charSet = "utf-8" />
-		<meta http-equiv="X-UA-Compatible" content = "IE=edge"/>
-		<meta name="viewport" content = "width=device-width, initial-scale=1"/>
-
-		{ console.log(Data) }
-		{ console.log(pageData) }
+		<meta http-equiv = "X-UA-Compatible" content = "IE=edge"/>
+		<meta name = "viewport" content = "width=device-width, initial-scale=1"/>
 
 		<link rel = "canonical" href = { `http://www.gregclark.com/${ pageData.slug ? pageData.slug : "" }` } />
 		<title>
@@ -23,7 +20,7 @@ const Head = ( { pageData } ) => (
 				: `${ Data.siteTitle } | ${ Data.siteDescription }`
 			}
 		</title>
-		<meta name="description" 
+		<meta name = "description" 
 			content = { 
 				pageData.description 
 				? pageData.description
@@ -48,7 +45,7 @@ const Head = ( { pageData } ) => (
 
 		{/*Social */}
 		{/*General image*/}
-		<link rel="image_src" type="image/jpeg" href = 
+		<link rel = "image_src" type = "image/jpeg" href = 
 			{ 
 				pageData.image
 				? pageData.image.url
@@ -80,26 +77,26 @@ const Head = ( { pageData } ) => (
 
 		{/*Twitter Card */}
 
-		{/*<meta name="twitter:card" content = "summary">*/}
+		{/*<meta name = "twitter:card" content = "summary">*/}
 		<meta name = "twitter:card" content = "summary_large_image" />
 		<meta name = "twitter:site" content = { vars.meta.twitterUsername } />
 		<meta name = "twitter:creator" content = { vars.meta.twitterCreator } />
 
 		{
 			pageData.title
-			? `<meta name="twitter:title" content = ${ pageData.title } />`
-			: `<meta name="twitter:title" content = ${ Data.siteTitle } />`
+			? `<meta name = "twitter:title" content = ${ pageData.title } />`
+			: `<meta name = "twitter:title" content = ${ Data.siteTitle } />`
 		}
 
-		<meta name="twitter:url" content = { `http://www.gregclark.com/${ pageData.slug ? pageData.slug : "" }` } />
-		<meta name="twitter:description" content = 
+		<meta name = "twitter:url" content = { `http://www.gregclark.com/${ pageData.slug ? pageData.slug : "" }` } />
+		<meta name = "twitter:description" content = 
 			{ 
 				pageData.description 
 				? pageData.description
 				: Data.siteDescription
 			}
 		/>
-		<meta name="twitter:image:src" content = 
+		<meta name = "twitter:image:src" content = 
 			{ 
 				pageData.image
 				? pageData.image.url
@@ -109,7 +106,7 @@ const Head = ( { pageData } ) => (
 
 		{/*Analytics */}
 		{/*Search Console */}
-		<meta name="google-site-verification" content = { vars.meta.googleSearch } />
+		<meta name = "google-site-verification" content = { vars.meta.googleSearch } />
 
 		{/*Google analytics*/}
 
