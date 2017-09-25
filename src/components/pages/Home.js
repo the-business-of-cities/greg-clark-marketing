@@ -77,7 +77,7 @@ const BannerDesktop = styled.img`
 
 const BannerMobile = styled.div`
 	width: 100%;
-	padding-top: 66.7%;
+	padding-top: 55%;
 
 	background-color: rgba(0,0,0,0.2);
 	background-image: url(${R.prop("src")});
