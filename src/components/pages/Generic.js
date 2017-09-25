@@ -8,12 +8,14 @@ import {
 	TextCell,
 } from "src/components/common";
 
+import * as mixins from "src/components/style/mixins";
+
 import Head from "src/components/common/Head";
 
 // --------------------------------------------------
 
 export const SecondaryImage = styled.div`
-	margin-top: -6.5em;
+	${mixins.bp.sm.min`margin-top: -6.5em;`}
 
 	img {
 		width: 100%;

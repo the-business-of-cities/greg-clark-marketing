@@ -41,6 +41,8 @@ export const Container = styled.div`
 	p.border
 		? `border-bottom: 1px solid ${vars.colors.lines};`
 		: ""} ${p => (p.center ? "text-align: center;" : "")};
+
+
 `;
 
 // --------------------------------------------------
@@ -101,6 +103,7 @@ export const SmartImg = styled.div`
 const IconWrapper = styled.i`
 	font-size: ${p => p.size || "1em"};
 	margin-right: ${p => p.marginRight || 0};
+	margin-left: ${p => p.marginLeft || 0};
 `;
 
 export const Icon = props =>
@@ -227,6 +230,14 @@ export const LineCell = () => (
 export const PageWrapper = styled.div`
 	position: relative;
 	overflow: hidden;
+
+	${mixins.xs`
+		& > ${Container} {
+			padding-left: 0;
+			padding-right: 0;
+
+		}
+	`}	
 `;
 
 export const PageImage = styled.img`
@@ -244,7 +255,11 @@ export const PageBody = styled.div`
 	background: ${ vars.colors.bg };
 	margin-top: 6em;
 	margin-bottom: 3em;
-	padding: 1.5em;
+	padding: 2.5em;
+	${mixins.xs`
+		margin-top: 4em;
+		padding: 1.8em;
+	`}
 
 	h1 {
 		background: ${ vars.colors.bg };
@@ -297,17 +312,18 @@ export const TileImage = styled.div`
 `;
 
 export const TileTitle = styled.h3`
+	margin-bottom: 0;
+
 	:hover, :active {
 		opacity: 0.7;
 	}
 
 	:after {
 		margin-top: 0.5em;
-		//margin-bottom: 12px;
 		content: '';
 		display: block;
 		width: 5em;
-		border-bottom: 0.4em solid #333;
+		border-bottom: 0.4em solid rgba(0,0,0,0.15);
 	}
 `;
 

@@ -67,7 +67,7 @@ const NewsTile = ({
 					<TileTitle>{ title }</TileTitle>
 				</Link>
 
-				<div>{ description }</div>
+				<p>{ description }</p>
 			</TileContent>
 		</TileInner>		
 	</TileWrapper>

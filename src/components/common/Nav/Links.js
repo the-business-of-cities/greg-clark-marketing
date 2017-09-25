@@ -37,13 +37,28 @@ const Wrapper = styled.div`
 `;
 
 const buttonStyle = [
-	`
+	css`
 		display: block;
-		padding: ${ vars.dim.nav.margin.xs };
-		border-bottom: 1px solid ${ mixins.tr(0.1) };
+		padding: 1.1em ${ vars.dim.nav.margin.xs };
+		border-bottom: 1px solid ${
+			R.pipe(
+				R.path([ "theme", "nav", ]),
+				color => mixins.darken(color, 0.2),
+			)
+		};
+		content: ${R.pipe(
+				x => (console.log(x), x),
+				R.path([ "theme", "nav", ]),
+				x => (console.log(x), x),
+			)};
+		line-height: 1;
 
 		&.active {
 			font-weight: bold;
+			background-color: ${R.pipe(
+				R.path([ "theme", "nav", ]),
+				color => mixins.lighten(color, 0.1),
+			)};
 		}
 
 		&:last-child {

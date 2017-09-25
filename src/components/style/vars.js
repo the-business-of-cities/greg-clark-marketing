@@ -42,6 +42,8 @@ export const font = {
 	title: {
 		family: "Montserrat, sans-serif",
 	},
+
+	family: "Montserrat, sans-serif",
 };
 
 const gutter = {
@@ -66,7 +68,7 @@ export const dimensions = {
 			other: "110px",
 		},
 		margin: {
-			xs: "10px",
+			xs: "14px",
 			other: (gutter.lg * 1.5) + "px",
 		},
 		logoHeight: {

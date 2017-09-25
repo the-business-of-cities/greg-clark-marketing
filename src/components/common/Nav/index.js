@@ -15,7 +15,7 @@ import Data from "src/data";
 // --------------------------------------------------
 
 const Wrapper = styled.nav`
-	${ mixins.bp.sm.min`${ mixins.shadow(1) }` } ${ mixins.bpEither(
+	${ mixins.bp.xs.min`${ mixins.shadow(1) }` } ${ mixins.bpEither(
 		"height",
 		vars.dim.nav.height,
 	) }
@@ -58,8 +58,11 @@ const Overlay = styled.div`
 const BurgerWrapper = styled.div`
 	position: absolute;
 	right: 0;
-	top: 50%;
-	margin-top: -20px;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 `;
 
 const LogoText = styled.div`

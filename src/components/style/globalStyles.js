@@ -22,12 +22,13 @@ const defaultGlobalStyles = css`
 
 	body {
 		background: ${ vars.colors.bg };
-		font-family: "Open Sans", Helvetica, Arial, sans-serif;
+		font-family: ${ vars.font.family };
 		${ mixins.bpEach("font-size", vars.font.size) }
 		color: ${ vars.colors.text };
 		margin: 0;
 		${ mixins.bpEither("margin-bottom", vars.dim.footer.height) }
 		line-height: 1.5;
+		text-rendering: optimizeLegibility;
 	}
 
 	a,
@@ -40,6 +41,35 @@ const defaultGlobalStyles = css`
 
 	p, h1, h2, h3, h4 {
 		${ mixins.bpEach("margin", textMargins) }
+	}
+
+	img {
+		vertical-align: bottom;
+	}
+`;
+
+// --------------------------------------------------
+
+const additionalGlobalStyles = css`
+	@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lora:400,700|Montserrat:400,600');
+
+	p, ul, ol {
+		font-family: "Lora", serif;
+		font-size: 1.1em;
+	}
+
+	p {
+		img {
+			max-width: 100%;
+		}
+	}
+
+	ul, ol, li {
+		${ mixins.bpEach("margin", textMargins) };
+	}
+
+	ul, ol, li {
+		margin-left: 1.5em;
 	}
 
 	h1,
@@ -56,35 +86,6 @@ const defaultGlobalStyles = css`
 			width: 5em;
 			border-bottom: 0.4em solid ${ vars.colors.bgdark };
 		}
-	}
-
-	img {
-		vertical-align: bottom;
-	}
-`;
-
-// --------------------------------------------------
-
-const additionalGlobalStyles = css`
-	@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lora');
-
-	p, ul, ol {
-		font-family: "Lora", serif;
-		font-size: 1.2em;
-	}
-
-	p {
-		img {
-			max-width: 100%;
-		}
-	}
-
-	ul, ol, li {
-		${ mixins.bpEach("margin", textMargins) };
-	}
-
-	ul, ol, li {
-		margin-left: 1.5em;
 	}
 `;
 

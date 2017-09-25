@@ -7,6 +7,8 @@ import {
 	FullWidthImg,
 	PageWrapper,
 	TileWrapper,
+	PageBody,
+	Icon,
 } from "src/components/common";
 
 import Head from "src/components/common/Head";
@@ -57,26 +59,60 @@ const ThirdsWrapper = styled(Container)`
 			&:hover,
 			&:visited,
 			&:active {
-				color: ${ vars.colors.link };
+				font-weight: bold;
 			}
 
 			&:hover,
 			&:active {
-				color: ${ vars.colors.linkHover };
 			}
 		}
 	}
 `;
 
+const BannerDesktop = styled.img`
+	width: 100%;
+	height: auto;
+	${mixins.xs`display: none;`}
+`;
+
+const BannerMobile = styled.div`
+	width: 100%;
+	padding-top: 66.7%;
+
+	background-color: rgba(0,0,0,0.2);
+	background-image: url(${R.prop("src")});
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	${mixins.bp.sm.min`display: none;`}
+`;
+
+const HomePageBody = styled(PageBody)`
+	${mixins.xs`padding-left: 2em; padding-right: 2em;`}
+`;
+
+const HomePageWrapper = styled.div`
+	position: relative;
+	overflow: hidden;
+`;
+
+const ArrowIcon = () => (
+	<Icon
+		type = "arrow-right"
+		size = "0.9em"
+		marginLeft = "0.1em"
+	/>
+)
+
 // --------------------------------------------------
 
 const Home = () => (
-	<PageWrapper>
+	<HomePageWrapper>
 		<Head/>
 
-		<FullWidthImg 
-			src = { Data.homeImage.url }
-		/>
+		<BannerMobile src = { Data.homeImage.url }/>
+		<BannerDesktop src = { Data.homeImage.url }/>
 
 		<OneTwoWrapper>
 			<TileWrapper>
@@ -99,7 +135,7 @@ const Home = () => (
 
 				<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis.</p>
 
-				<p><Link to = "/for-cities">Find out more →</Link></p>
+				<p><Link to = "/for-cities">Find out more <ArrowIcon/></Link></p>
 			</TileWrapper>
 
 			<TileWrapper>
@@ -107,7 +143,7 @@ const Home = () => (
 
 				<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis.</p>
 
-				<p><Link to = "/for-events">Find out more →</Link></p>
+				<p><Link to = "/for-events">Find out more <ArrowIcon/></Link></p>
 			</TileWrapper>
 
 			<TileWrapper>
@@ -115,10 +151,10 @@ const Home = () => (
 
 				<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis.</p>
 
-				<p><Link to = "/for-media">Find out more →</Link></p>
+				<p><Link to = "/for-media">Find out more <ArrowIcon/></Link></p>
 			</TileWrapper>
 		</ThirdsWrapper>
-	</PageWrapper>
+	</HomePageWrapper>
 );
 
 export default Home;
