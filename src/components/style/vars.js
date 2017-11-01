@@ -24,7 +24,9 @@ export const colors = {
 	footer: "#333",
 	//footer: "#041C3A",
 	bg: "#FCDABF",
+	bg: "#fff",
 	bgdark: "#E4C1A3",
+	bgdark: "#ddd",
 	//background: #FFEFDB;
 	grey: "rgba(0,0,0,0.2)",
 	lines: "rgba(0,0,0,0.2)",
