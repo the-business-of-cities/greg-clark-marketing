@@ -33,7 +33,7 @@ const Generic = ( page ) => (
 		<Container>
 			<TextCell>
 				<PageBody>
-					<h1>{ page.title }</h1>
+					<h1>{ page.fullTitle || page.title }</h1>
 
 					{
 						page.secondaryImage

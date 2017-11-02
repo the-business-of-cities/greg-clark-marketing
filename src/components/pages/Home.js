@@ -6,6 +6,7 @@ import {
 	Container, 
 	FullWidthImg,
 	PageWrapper,
+	TextCell,
 	TileWrapper,
 	PageBody,
 	Icon,
@@ -16,6 +17,7 @@ import Head from "src/components/common/Head";
 import * as mixins from "../style/mixins";
 import * as vars from "../style/vars";
 
+import routesConfig from "src/routesConfig";
 import Data from "src/data";
 
 // --------------------------------------------------
@@ -129,31 +131,28 @@ const Home = () => (
 			</TileWrapper>
 		</OneTwoWrapper>
 
+		<Container>
+			<TextCell>
+				<h2>Greg's Work</h2>
+			</TextCell>
+		</Container>
+
 		<ThirdsWrapper>
-			<TileWrapper>
-				<h3>For Cities</h3>
+			{
+				routesConfig
+				.filter(R.prop("service"))
+				.map(( page ) =>
+					<TileWrapper>
+						<h3>{ page.title }</h3>
 
-				<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis.</p>
+						<p>{ page.description }</p>
 
-				<p><Link to = "/for-cities">Find out more <ArrowIcon/></Link></p>
-			</TileWrapper>
-
-			<TileWrapper>
-				<h3>For Events</h3>
-
-				<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis.</p>
-
-				<p><Link to = "/for-events">Find out more <ArrowIcon/></Link></p>
-			</TileWrapper>
-
-			<TileWrapper>
-				<h3>For Media</h3>
-
-				<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis.</p>
-
-				<p><Link to = "/for-media">Find out more <ArrowIcon/></Link></p>
-			</TileWrapper>
+						<p><Link to = { page.slug }>Find out more <ArrowIcon/></Link></p>
+					</TileWrapper>
+				)
+			}
 		</ThirdsWrapper>
+
 	</HomePageWrapper>
 );
 

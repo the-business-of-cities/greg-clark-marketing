@@ -80,7 +80,7 @@ data.navLinks.forEach(o => {
 	routesConfig.push({
 		...o,
 		component: Generic,
-		show: true,
+		show: o.service ? false : true,
 	})
 });
 

@@ -47,9 +47,7 @@ const buttonStyle = [
 			)
 		};
 		content: ${R.pipe(
-				x => (console.log(x), x),
 				R.path([ "theme", "nav", ]),
-				x => (console.log(x), x),
 			)};
 		line-height: 1;
 
@@ -84,12 +82,43 @@ const buttonStyle = [
 	`,
 ];
 
-// should be Link
-const Button = styled(NavLink)`
+const Link = styled(NavLink)`
 	color: ${ R.path([ "theme", "logo1", ]) };
+	position: relative;
 
 	${ mixins.xs`${ buttonStyle[0] }` }
 	${ mixins.bp.sm.min`${buttonStyle[1] }` }
+
+	&:hover {
+		> div {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+`;
+
+const DropdownLinks = styled.div`
+	${ mixins.xs`
+		padding-top: 1em;
+	` }
+
+	${ mixins.bp.sm.min`
+		display: none;
+		background: #666;
+		position: absolute;
+		top: ${vars.dim.nav.linksHeight};
+		left: 0;
+		width: 200px;
+	` }
+`;
+
+const DropdownArrow = styled.span`
+	margin-left: 0.5em;
+	font-size: 0.8em;
+
+	${ mixins.xs`
+		display: none;
+	` }
 `;
 
 // --------------------------------------------------
@@ -100,15 +129,36 @@ export default ({ close, open, }) =>
 			routesConfig
 			.filter(R.prop("show"))
 			.map(({ title, path, }) =>
-				<Button
-					key = { path }
-					to = { path }
-					activeClassName = "active"
-					onClick = { close }
-					exact = { path === "/" }
-				>
-					{ title }
-				</Button>,
+				(
+					<Link
+						key = { path }
+						to = { path }
+						activeClassName = "active"
+						onClick = { close }
+						exact = { path === "/" }
+					>
+						{ title } { path === "/work" && <DropdownArrow>▼</DropdownArrow> }
+
+						<DropdownLinks>
+							{ 
+								path === "/work"
+								&& routesConfig
+								.filter(R.prop("service"))
+								.map(({ title, path, }) => (
+									<Link
+										key = { path }
+										to = { path }
+										activeClassName = "active"
+										onClick = { close }
+										exact = { path === "/" }
+									>
+										{ title } 
+									</Link>
+								))
+							}
+						</DropdownLinks>
+					</Link>
+				)
 			)
 		}
 	</Wrapper>;
