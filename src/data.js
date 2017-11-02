@@ -107,8 +107,7 @@ const publications = (
 );
 
 const news = (
-	dataObj.news
-	.sort((l,r) => (new Date(r.originalDate || r.createdAt) - new Date(l.originalDate || l.createdAt)))
+	dataObj.news.sort((l,r) => (new Date(r.originalDate || r.createdAt) - new Date(l.originalDate || l.createdAt)))
 );
 const newsMap = makeMapUsingSlugs(news);
 
