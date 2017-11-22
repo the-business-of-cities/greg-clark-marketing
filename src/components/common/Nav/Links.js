@@ -40,12 +40,7 @@ const buttonStyle = [
 	css`
 		display: block;
 		padding: 1.1em ${ vars.dim.nav.margin.xs };
-		border-bottom: 1px solid ${
-			R.pipe(
-				R.path([ "theme", "nav", ]),
-				color => mixins.darken(color, 0.2),
-			)
-		};
+		
 		content: ${R.pipe(
 				R.path([ "theme", "nav", ]),
 			)};
@@ -59,9 +54,7 @@ const buttonStyle = [
 			)};
 		}
 
-		&:last-child {
-			border-bottom: 0;
-		}
+		
 	`,
 
 	`
@@ -82,24 +75,42 @@ const buttonStyle = [
 	`,
 ];
 
+const LinkWrapper = styled.div`
+	position: relative;
+
+	${ mixins.xs`
+		border-top: 1px solid ${
+			R.pipe(
+				R.path([ "theme", "nav", ]),
+				color => mixins.darken(color, 0.2),
+			)
+		};
+		&:first-child {
+		}
+	` }
+
+	${ mixins.bp.sm.min`
+		&:hover {
+			> div {
+				display: block;
+			}
+		}
+	` }	
+`;
+
 const Link = styled(NavLink)`
 	color: ${ R.path([ "theme", "logo1", ]) };
-	position: relative;
 
 	${ mixins.xs`${ buttonStyle[0] }` }
 	${ mixins.bp.sm.min`${buttonStyle[1] }` }
-
-	&:hover {
-		> div {
-			display: flex;
-			flex-direction: column;
-		}
-	}
 `;
+
 
 const DropdownLinks = styled.div`
 	${ mixins.xs`
-		padding-top: 1em;
+		padding-left: 1em;
+		font-size: 0.9em;
+		opacity: 0.67;
 	` }
 
 	${ mixins.bp.sm.min`
@@ -109,6 +120,11 @@ const DropdownLinks = styled.div`
 		top: ${vars.dim.nav.linksHeight};
 		left: 0;
 		width: 200px;
+
+		a {
+			display: block;
+			border: 0;
+		}
 	` }
 `;
 
@@ -130,34 +146,39 @@ export default ({ close, open, }) =>
 			.filter(R.prop("show"))
 			.map(({ title, path, }) =>
 				(
-					<Link
-						key = { path }
-						to = { path }
-						activeClassName = "active"
-						onClick = { close }
-						exact = { path === "/" }
+					<LinkWrapper
+						key = { path }						
+						onClick = { close }						
 					>
-						{ title } { path === "/work" && <DropdownArrow>▼</DropdownArrow> }
-
-						<DropdownLinks>
-							{ 
-								path === "/work"
-								&& routesConfig
-								.filter(R.prop("service"))
-								.map(({ title, path, }) => (
-									<Link
-										key = { path }
-										to = { path }
-										activeClassName = "active"
-										onClick = { close }
-										exact = { path === "/" }
-									>
-										{ title } 
-									</Link>
-								))
-							}
-						</DropdownLinks>
-					</Link>
+						<Link
+							to = { path }
+							activeClassName = "active"
+							exact
+						>
+							{ title } { path === "/work" && <DropdownArrow>▼</DropdownArrow> }
+						</Link>
+						{
+							path === "/work"
+							? <DropdownLinks>
+								{
+									routesConfig
+									.filter(R.prop("service"))
+									.map(({ title, path, }) => (
+										<LinkWrapper key = { path }>
+											<Link											
+												to = { path }
+												activeClassName = "active"
+												exact
+											>
+												{ title } 
+											</Link>
+										</LinkWrapper>
+									))
+								}
+							</DropdownLinks>
+							: null
+						}
+					</LinkWrapper>
 				)
 			)
 		}
