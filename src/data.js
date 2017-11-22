@@ -66,6 +66,7 @@ const defaultFieldShaping = R.pipe(
 	adjustFields("homeImage", "homeImage", shapeImageField),
 	adjustFields("title", "slug", slugify),
 	adjustFields("content", "html", marked),
+	adjustFields("logos", "logos", R.map(shapeImageField)),
 );
 
 const dataObj = {};

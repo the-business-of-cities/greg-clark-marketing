@@ -45,6 +45,8 @@ const Generic = ( page ) => (
 					<div dangerouslySetInnerHTML = {{
 						__html: page.html,
 					}}/>
+
+					{ page.children }
 				</PageBody>
 			</TextCell>
 		</Container>

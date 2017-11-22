@@ -65,7 +65,7 @@ const doMasonry = () => {
 			// 	() => masonryInstance.layout()
 			// );
 		},
-		2000
+		1000
 	);
 };
 

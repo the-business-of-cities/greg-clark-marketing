@@ -9,6 +9,7 @@ import Publications from "./components/pages/Publications";
 import Import from "./components/pages/Import";
 import News from "./components/pages/News";
 import NewsPost from "./components/pages/NewsPost";
+import About from "./components/pages/About";
 
 import data from "src/data";
 import rawdata from "src/rawdata";
@@ -76,10 +77,14 @@ routesConfig.push(
 	},
 );
 
+const pageComponents = {
+	"about-greg": About,
+}
+
 data.navLinks.forEach(o => {
 	routesConfig.push({
 		...o,
-		component: Generic,
+		component: pageComponents[o.slug] || Generic,
 		show: o.service ? false : true,
 	})
 });
