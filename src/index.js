@@ -4,3 +4,8 @@ import App from "./App";
 import { render, } from "react-snapshot";
 
 render(<App />, document.getElementById("root"));
+
+navigator.serviceWorker.getRegistrations().then(function(registrations) {
+	for(let registration of registrations) {
+		registration.unregister()
+	} })
