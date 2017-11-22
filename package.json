@@ -43,7 +43,7 @@
     "build": "react-scripts build",
     "static": "yarn data && yarn build && react-snapshot",
     "data": "node scripts/static/makeDataFile",
-    "netlify": "yarn data && yarn build",
+    "netlify": "yarn static",
     "test": "react-scripts test --env=jsdom",
     "lint": "react-scripts format",
     "format": "react-scripts format",
