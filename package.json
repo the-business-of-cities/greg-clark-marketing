@@ -41,7 +41,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "static": "yarn data && yarn build",
+    "static": "yarn data && yarn build && react-snapshot",
     "data": "node scripts/static/makeDataFile",
     "test": "react-scripts test --env=jsdom",
     "lint": "react-scripts format",
