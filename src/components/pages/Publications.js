@@ -17,6 +17,7 @@ import {
 	Container,
 	TextCell,
 	GridCell,
+	AntiGridCell,
 	SmartImg,
 } from "src/components/common";
 
@@ -26,6 +27,31 @@ import * as mixins from "src/components/style/mixins";
 import * as vars from "src/components/style/vars";
 
 // --------------------------------------------------
+
+const PubsWrapper = styled(AntiGridCell)`
+	padding-top: 2em;
+	${mixins.bp.sm.min`margin: 0;`}
+`;
+
+const borderWidth = 2;
+
+const PubWrapper = styled(GridCell)`
+	width: calc(33.33333333333% + ${borderWidth}px);
+	${mixins.bp.sm.max`width: calc(50% + ${borderWidth}px);`}
+	border: ${borderWidth}px solid ${ vars.colors.bgdark };
+	margin: -${borderWidth * 0.5}px;
+	padding-bottom: 0;
+`;
+
+const PubText = styled.div`
+	font-size: 0.8em;
+`;
+
+const PubTitle = styled.p`
+	font-family: ${vars.font.title.family};
+	font-size: 1.25em;
+    font-weight: bold;
+`;
 
 const doMasonry = () => {
 	setTimeout(
@@ -39,7 +65,7 @@ const doMasonry = () => {
 			// 	() => masonryInstance.layout()
 			// );
 		},
-		0
+		2000
 	);
 };
 
@@ -55,28 +81,21 @@ const PublicationTile = ({
 	link,
 	description,
 }) => (
-	<TileWrapper
-		className = "masonry-item"
-		small
-	>
-		<TileInner>
-			<a href = { link }>
-				<TileImage>
-					<SmartImg { ...image }/>
-				</TileImage>
-			</a>
-
-			<TileContent>
-				<a href = { link }>
-					<TileTitle>{ title }</TileTitle>
-				</a>
-
+	<a href = { link }>
+		<PubWrapper
+			className = "masonry-item"
+		>
+			<GridCell>
+			<SmartImg { ...image } unlimitedHeight/>
+			<PubText>
+				<PubTitle>{ title }</PubTitle>
 				<div dangerouslySetInnerHTML = {{
 					__html: description,
 				}}/>
-			</TileContent>
-		</TileInner>
-	</TileWrapper>
+			</PubText>
+			</GridCell>
+		</PubWrapper>
+	</a>
 );
 
 const Publications = () => (
@@ -96,12 +115,12 @@ const Publications = () => (
 
 					<h2>Recent Publications</h2>
 
-					<TilesWrapper className = "masonry-items">
+					<PubsWrapper className = "masonry-items">
 						{
 							Data.publications
 							.map((props, i) => <PublicationTile { ...props } key = { props.slug + i }/>)
 						}
-					</TilesWrapper>
+					</PubsWrapper>
 				</PageBody>
 			</TextCell>
 		</Container>

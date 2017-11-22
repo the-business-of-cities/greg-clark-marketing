@@ -95,6 +95,7 @@ export const dimensions = {
 		halfNum: objMap(gutter, (k, v) => 0.5 * v),
 		quarterNum: objMap(gutter, (k, v) => 0.25 * v),
 		tripleHalfNum: objMap(gutter, (k, v) => 1.5 * v),
+		negativeHalf: objMap(gutter, (k, v) => -0.5 * v + "px"),
 	},
 	scrollbar: scrollbar.width,
 };

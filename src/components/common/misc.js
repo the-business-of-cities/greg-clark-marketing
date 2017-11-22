@@ -13,6 +13,12 @@ export const GridCell = styled.div`
 	p.flex ? `flex: ${ p.flex };` : "" };
 `;
 
+// this is so bad but this site is kinda messed up anyway
+export const AntiGridCell = styled.div`
+	${ mixins.bpEach("margin", vars.dim.gutter.negativeHalf) } 
+`;
+
+
 // --------------------------------------------------
 
 const textBoxMargins = objMap(vars.font.size, (key, val) => `-${val} auto`);
@@ -81,16 +87,23 @@ export const FullWidthImg = styled.img`
 `;
 
 export const SmartImg = styled.div`
-	width: 100%;
 	${p => (
-		p.height && p.width && p.height >= p.width
-		? `width: ${100 * ( p.width / p.height )}%;`
-		: "width: 100%;"
-	)}
-	${p => (
-		p.height && p.width && p.height <= p.width
-		? `padding-top: ${100 * (p.height / p.width)}%;`
-		: "padding-top: 100%;"
+		p.height && p.width
+		? (
+			p.height <= p.width || p.unlimitedHeight
+			? `
+				width: 100%;
+				padding-top: ${100 * (p.height / p.width)}%;
+			`
+			: `
+				width: ${100 * ( p.width / p.height )}%;
+				padding-top: 100%;
+			`
+		)
+		: `
+			width: 100%;
+			padding-top: 100%;
+		`
 	)}
 	background-color: rgba(0,0,0,0.2);
 	background-image: url(${R.prop("url")});
