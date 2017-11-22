@@ -5,7 +5,11 @@ import { render, } from "react-snapshot";
 
 render(<App />, document.getElementById("root"));
 
-navigator.serviceWorker.getRegistrations().then(function(registrations) {
-	for(let registration of registrations) {
-		registration.unregister()
-	} })
+if (navigator && navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+	navigator.serviceWorker.getRegistrations().then(function(registrations) {
+		for(let registration of registrations) {
+			registration.unregister()
+		} })
+}
+
+
