@@ -71,38 +71,43 @@ const EventRole = styled.div`
 
 // --------------------------------------------------
 
-const orderEvents = (events, future, condensed, ) => {
+const Event = ({ condensed, ...event }) => (
+	<Link 
+		to = {`/events/${ event.slug }`}
+		key = { event.date }
+	>
+		<EventWrapper>
+			<EventBody>
+				<h4>{ event.name }</h4>
+
+				<EventDate>{ Moment(event.date).format('Do MMMM YYYY') }, { event.location }</EventDate>
+
+				<EventRole>{ event.role }</EventRole>
+
+				{ 
+					condensed
+					? null
+					: <div>{ event.description }</div>
+				}
+			</EventBody>
+
+			<EventImage src = { event.image.url }/>
+		</EventWrapper>
+	</Link>
+);
+
+const orderEvents = (events, future) => {
 	return events.sort( (a, b) => {
 		return Moment(a.date).diff(Moment(b.date));
 	})
 	.filter( event => future ? Moment(event.date).diff(Moment()) >= 0 : Moment(event.date).diff(Moment()) < 0 )
-	.map( event => {
-		return (
-			<Link 
-				to = {`/events/${ event.slug }`}
-				key = { event.date }
-			>
-				<EventWrapper>
-					<EventBody>
-						<h4>{ event.name }</h4>
-
-						<EventDate>{ Moment(event.date).format('Do MMMM YYYY') }, { event.location }</EventDate>
-
-						<EventRole>{ event.role }</EventRole>
-
-						{ 
-							condensed
-							? null
-							: <div>{ event.description }</div>
-						}
-					</EventBody>
-
-					<EventImage src={ event.image.url }/>
-				</EventWrapper>
-			</Link>
-		);
-	})
 };
+
+const pastEvents = orderEvents(Data.events, false, true);
+const upcomingEvents = orderEvents(Data.events, true, false);
+
+const PastEvents = pastEvents.map(event => <Event { ...event } condensed/>);
+const UpcomingEvents = upcomingEvents.map(event => <Event { ...event }/>);
 
 const Events = () => (
 	<PageWrapper>
@@ -119,16 +124,22 @@ const Events = () => (
 						__html: Data.pagesMap.events.html,
 					}}/>
 
-					<h2>Upcoming events</h2>
-
-					{	
-						orderEvents(Data.events, true, false)
+					{
+						upcomingEvents.length
+						? <div>
+							<h2>Upcoming events</h2>
+							{ UpcomingEvents }
+						</div>
+						: null
 					}
 
-					<h2>Past events</h2>
-
-					{	
-						orderEvents(Data.events, false, true)
+					{
+						pastEvents.length
+						? <div>
+							<h2>Past events</h2>
+							{ PastEvents }
+						</div>
+						: null
 					}
 				</PageBody>
 			</TextCell>
