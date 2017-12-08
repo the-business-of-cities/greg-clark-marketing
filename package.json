@@ -36,17 +36,19 @@
   "devDependencies": {
     "codogo-react-scripts": "1.0.8-beta.51",
     "eslint": "^4.4.1",
-    "prettier": "^1.5.3"
+    "prettier": "^1.5.3",
+    "sitemap-static": "^0.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "static": "yarn data && yarn build && react-snapshot",
+    "static": "yarn data && yarn build && react-snapshot && yarn sitemap",
     "data": "node scripts/static/makeDataFile",
     "netlify": "yarn static",
     "test": "react-scripts test --env=jsdom",
     "lint": "react-scripts format",
     "format": "react-scripts format",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sitemap": "sitemap-static --prefix=https://gregclark.com/ build | sed -e \"s/\\.html//g\" > build/sitemap.xml"
   }
 }
