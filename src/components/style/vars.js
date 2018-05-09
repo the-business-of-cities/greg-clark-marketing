@@ -71,7 +71,7 @@ export const dimensions = {
 		},
 		margin: {
 			xs: "14px",
-			other: (gutter.lg * 1.5) + "px",
+			other: gutter.lg * 1.5 + "px",
 		},
 		logoHeight: {
 			xs: "40px",

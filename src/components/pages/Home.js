@@ -2,20 +2,16 @@ import styled from "styled-components";
 
 import { Link, } from "react-router-dom";
 
-import { 
-	Container, 
-	FullWidthImg,
-	PageWrapper,
+import {
+	Container,
 	TextCell,
 	TileWrapper,
-	PageBody,
 	Icon,
 } from "src/components/common";
 
 import Head from "src/components/common/Head";
 
 import * as mixins from "../style/mixins";
-import * as vars from "../style/vars";
 
 import routesConfig from "src/routesConfig";
 import Data from "src/data";
@@ -42,7 +38,7 @@ const OneTwoWrapper = styled(Container)`
 
 			p {
 				margin-top: 0.5em;
-			}	
+			}
 		}
 	}
 `;
@@ -74,24 +70,25 @@ const ThirdsWrapper = styled(Container)`
 const BannerDesktop = styled.img`
 	width: 100%;
 	height: auto;
-	${mixins.xs`display: none;`}
+	max-height: 400px;
+
+	object-fit: cover;
+	object-position: top;
+
+	${ mixins.xs`display: none;` };
 `;
 
 const BannerMobile = styled.div`
 	width: 100%;
 	padding-top: 55%;
 
-	background-color: rgba(0,0,0,0.2);
-	background-image: url(${R.prop("src")});
+	background-color: rgba(0, 0, 0, 0.2);
+	background-image: url(${ R.prop("src") });
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
 
-	${mixins.bp.sm.min`display: none;`}
-`;
-
-const HomePageBody = styled(PageBody)`
-	${mixins.xs`padding-left: 2em; padding-right: 2em;`}
+	${ mixins.bp.sm.min`display: none;` };
 `;
 
 const HomePageWrapper = styled.div`
@@ -100,34 +97,30 @@ const HomePageWrapper = styled.div`
 `;
 
 const ArrowIcon = () => (
-	<Icon
-		type = "arrow-right"
-		size = "0.9em"
-		marginLeft = "0.1em"
-	/>
-)
+	<Icon type = "arrow-right" size = "0.9em" marginLeft = "0.1em" />
+);
 
 // --------------------------------------------------
 
 const Home = () => (
 	<HomePageWrapper>
-		<Head/>
+		<Head />
 
-		<BannerMobile src = { Data.homeImage.url }/>
-		<BannerDesktop src = { Data.homeImage.url }/>
+		<BannerMobile src = { Data.homeImage.url } />
+		<BannerDesktop src = { Data.homeImage.url } />
 
 		<OneTwoWrapper>
 			<TileWrapper>
 				<h1>
-					Global Advisor.<br/>
-					Chairman.<br/>
-					Speaker.<br/>
-					Moderator.<br/>
+					Global Advisor.<br />
+					Chairman.<br />
+					Speaker.<br />
+					Moderator.<br />
 				</h1>
 			</TileWrapper>
 
 			<TileWrapper>
-				<p>{ Data.homeDescription }</p>
+				<p>{Data.homeDescription}</p>
 			</TileWrapper>
 		</OneTwoWrapper>
 
@@ -138,21 +131,20 @@ const Home = () => (
 		</Container>
 
 		<ThirdsWrapper>
-			{
-				routesConfig
-				.filter(R.prop("service"))
-				.map(( page ) =>
-					<TileWrapper>
-						<h3>{ page.title }</h3>
+			{routesConfig.filter(R.prop("service")).map(page => (
+				<TileWrapper>
+					<h3>{page.title}</h3>
 
-						<p>{ page.description }</p>
+					<p>{page.description}</p>
 
-						<p><Link to = { page.slug }>Find out more <ArrowIcon/></Link></p>
-					</TileWrapper>
-				)
-			}
+					<p>
+						<Link to = { page.slug }>
+							Find out more <ArrowIcon />
+						</Link>
+					</p>
+				</TileWrapper>
+			))}
 		</ThirdsWrapper>
-
 	</HomePageWrapper>
 );
 

@@ -20,7 +20,7 @@ const enhance = compose(
 	withHandlers({
 		createPublication,
 		createNews,
-		onChangeXml: ({ setXml, }) => e => (setXml(e.target.value)),
+		onChangeXml: ({ setXml, }) => e => setXml(e.target.value),
 	}),
 	withHandlers({
 		onSubmitPublicationsXml,
@@ -31,10 +31,11 @@ const enhance = compose(
 			this.client = createClient({
 				accessToken: this.props.match.params.accessToken,
 			});
-			this.client.getSpace(this.props.match.params.spaceId)
-			.then(space => {
-				this.props.setSpace(space);
-			});			
+			this.client
+				.getSpace(this.props.match.params.spaceId)
+				.then(space => {
+					this.props.setSpace(space);
+				});
 		},
 	}),
 );
@@ -42,11 +43,13 @@ const enhance = compose(
 const Import = props => (
 	<Container>
 		<GridCell>
-			<Input onChange = { props.onChangeXml }/>
+			<Input onChange = { props.onChangeXml } />
 
 			<div>
-				<button onClick = { props.onSubmitPublicationsXml }>Import Publications</button>
-				
+				<button onClick = { props.onSubmitPublicationsXml }>
+					Import Publications
+				</button>
+
 				<button onClick = { props.onSubmitNewsXml }>Import News</button>
 			</div>
 		</GridCell>
@@ -56,8 +59,5 @@ const Import = props => (
 const EnhancedImport = enhance(Import);
 
 export default () => (
-	<Route
-		path = "/import/:spaceId/:accessToken"
-		component = { EnhancedImport }
-	/>
+	<Route path = "/import/:spaceId/:accessToken" component = { EnhancedImport } />
 );

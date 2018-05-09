@@ -6,7 +6,7 @@ import {
 	PageWrapper,
 	PageBody,
 	PageImage,
-	Container, 
+	Container,
 	TextCell,
 } from "src/components/common";
 
@@ -72,80 +72,78 @@ const EventRole = styled.div`
 // --------------------------------------------------
 
 const Event = ({ condensed, ...event }) => (
-	<Link 
-		to = {`/events/${ event.slug }`}
-		key = { event.date }
-	>
+	<Link to = { `/events/${ event.slug }` } key = { event.date }>
 		<EventWrapper>
 			<EventBody>
-				<h4>{ event.name }</h4>
+				<h4>{event.name}</h4>
 
-				<EventDate>{ Moment(event.date).format('Do MMMM YYYY') }, { event.location }</EventDate>
+				<EventDate>
+					{Moment(event.date).format("Do MMMM YYYY")},{" "}
+					{event.location}
+				</EventDate>
 
-				<EventRole>{ event.role }</EventRole>
+				<EventRole>{event.role}</EventRole>
 
-				{ 
-					condensed
-					? null
-					: <div>{ event.description }</div>
-				}
+				{condensed ? null : <div>{event.description}</div>}
 			</EventBody>
 
-			<EventImage src = { event.image.url }/>
+			<EventImage src = { event.image.url } />
 		</EventWrapper>
 	</Link>
 );
 
 const orderEvents = (events, future) => {
-	return events.sort( (a, b) => {
-		return Moment(a.date).diff(Moment(b.date));
-	})
-	.filter( event => future ? Moment(event.date).diff(Moment()) >= 0 : Moment(event.date).diff(Moment()) < 0 )
+	return events
+		.sort((a, b) => {
+			return Moment(a.date).diff(Moment(b.date));
+		})
+		.filter(
+			event =>
+				future
+					? Moment(event.date).diff(Moment()) >= 0
+					: Moment(event.date).diff(Moment()) < 0,
+		);
 };
 
 const pastEvents = orderEvents(Data.events, false, true);
 const upcomingEvents = orderEvents(Data.events, true, false);
 
-const PastEvents = pastEvents.map(event => <Event { ...event } condensed/>);
-const UpcomingEvents = upcomingEvents.map(event => <Event { ...event }/>);
+const PastEvents = pastEvents.map(event => <Event { ...event } condensed />);
+const UpcomingEvents = upcomingEvents.map(event => <Event { ...event } />);
 
 const Events = () => (
 	<PageWrapper>
-		<Head
-			pageData = { Data.pagesMap.events }
-		/>
+		<Head pageData = { Data.pagesMap.events } />
 
 		<Container>
 			<TextCell>
 				<PageBody>
-					<h1>{ Data.pagesMap.events.title }</h1>
+					<h1>{Data.pagesMap.events.title}</h1>
 
-					<div dangerouslySetInnerHTML = {{
-						__html: Data.pagesMap.events.html,
-					}}/>
+					<div
+						dangerouslySetInnerHTML = { {
+							__html: Data.pagesMap.events.html,
+						} }
+					/>
 
-					{
-						upcomingEvents.length
-						? <div>
+					{upcomingEvents.length ? (
+						<div>
 							<h2>Upcoming events</h2>
-							{ UpcomingEvents }
+							{UpcomingEvents}
 						</div>
-						: null
-					}
+					) : null}
 
-					{
-						pastEvents.length
-						? <div>
+					{pastEvents.length ? (
+						<div>
 							<h2>Past events</h2>
-							{ PastEvents }
+							{PastEvents}
 						</div>
-						: null
-					}
+					) : null}
 				</PageBody>
 			</TextCell>
 		</Container>
-		
-		<PageImage src = { Data.pagesMap.events.image.url }/>
+
+		<PageImage src = { Data.pagesMap.events.image.url } />
 	</PageWrapper>
 );
 

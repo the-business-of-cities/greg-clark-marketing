@@ -5,11 +5,14 @@ import { render, } from "react-snapshot";
 
 render(<App />, document.getElementById("root"));
 
-if (navigator && navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+if (
+	navigator &&
+	navigator.serviceWorker &&
+	navigator.serviceWorker.getRegistrations
+) {
 	navigator.serviceWorker.getRegistrations().then(function(registrations) {
-		for(let registration of registrations) {
-			registration.unregister()
-		} })
+		for (let registration of registrations) {
+			registration.unregister();
+		}
+	});
 }
-
-

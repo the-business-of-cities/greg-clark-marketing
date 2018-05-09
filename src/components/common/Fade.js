@@ -8,7 +8,7 @@ export class Fader extends React.Component {
 	constructor(props) {
 		super(props);
 		this.ref = this.ref.bind(this);
-		["fadeIn", "fadeOut", "slideDown", "slideUp",].map(
+		[ "fadeIn", "fadeOut", "slideDown", "slideUp", ].map(
 			name => (this[name] = this[name].bind(this)),
 		);
 	}
@@ -100,11 +100,7 @@ export class Fader extends React.Component {
 	}
 
 	render() {
-		return (
-			<div ref = { this.ref }>
-				{this.props.children}
-			</div>
-		);
+		return <div ref = { this.ref }>{this.props.children}</div>;
 	}
 
 	defaultProps = {
@@ -118,12 +114,12 @@ const FirstChild = props => React.Children.toArray(props.children)[0] || null;
 
 // --------------------------------------------------
 
-export default props =>
+export default props => (
 	<ReactTransitionGroup component = { FirstChild }>
-		{ props.visible
-			? <Fader fadeDuration = { props.fadeDuration } slide = { props.slide }>
+		{props.visible ? (
+			<Fader fadeDuration = { props.fadeDuration } slide = { props.slide }>
 				{props.children}
 			</Fader>
-			: null
-		}
-	</ReactTransitionGroup>;
+		) : null}
+	</ReactTransitionGroup>
+);

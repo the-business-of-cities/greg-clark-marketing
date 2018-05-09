@@ -34,7 +34,7 @@ data.events.forEach(o => {
 		exact: true,
 		show: false,
 		event: o,
-	})
+	});
 });
 
 data.news.forEach(o => {
@@ -44,7 +44,7 @@ data.news.forEach(o => {
 		exact: true,
 		show: false,
 		...o,
-	})
+	});
 });
 
 routesConfig.push(
@@ -79,14 +79,14 @@ routesConfig.push(
 
 const pageComponents = {
 	"about-greg": About,
-}
+};
 
 data.navLinks.forEach(o => {
 	routesConfig.push({
 		...o,
 		component: pageComponents[o.slug] || Generic,
 		show: o.service ? false : true,
-	})
+	});
 });
 
 routesConfig.push({

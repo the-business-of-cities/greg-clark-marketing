@@ -10,8 +10,8 @@ export const truncate = () => `
 `;
 
 export const wh = size => `
-	width: ${size};
-	height: ${size};
+	width: ${ size };
+	height: ${ size };
 `;
 
 export const shadow = (elevation = 1) =>
@@ -33,10 +33,10 @@ export const shadow = (elevation = 1) =>
 
 export const contained = (offset = 0) => `
 	position: absolute;
-	top: ${offset};
-	right: ${offset};
-	bottom: ${offset};
-	left: ${offset};
+	top: ${ offset };
+	right: ${ offset };
+	bottom: ${ offset };
+	left: ${ offset };
 `;
 
 export const removePx = npx => +npx.replace("px", "");
@@ -48,7 +48,7 @@ export const px = addPx;
 export const bgImage = url => `
 	background-size: cover;
 	background-position: center center;
-	background-image: url(${url});
+	background-image: url(${ url });
 `;
 
 export const clearfix = `

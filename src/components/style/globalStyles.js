@@ -92,6 +92,6 @@ const additionalGlobalStyles = css`
 // --------------------------------------------------
 
 export default () => injectGlobal`
-	${defaultGlobalStyles}
-	${additionalGlobalStyles}
+	${ defaultGlobalStyles }
+	${ additionalGlobalStyles }
 `;

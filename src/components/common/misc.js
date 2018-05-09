@@ -15,38 +15,37 @@ export const GridCell = styled.div`
 
 // this is so bad but this site is kinda messed up anyway
 export const AntiGridCell = styled.div`
-	${ mixins.bpEach("margin", vars.dim.gutter.negativeHalf) } 
+	${ mixins.bpEach("margin", vars.dim.gutter.negativeHalf) };
 `;
-
 
 // --------------------------------------------------
 
-const textBoxMargins = objMap(vars.font.size, (key, val) => `-${val} auto`);
+const textBoxMargins = objMap(vars.font.size, (key, val) => `-${ val } auto`);
 
 export const TextBox = styled.div`
-	${ mixins.bpEach("margin", textBoxMargins) } ${p =>
-	p.bold ? "font-weight: bold;" : ""} ${p =>
-	p.align ? `text-align: ${p.align};` : ""};
+	${ mixins.bpEach("margin", textBoxMargins) } ${ p =>
+	p.bold ? "font-weight: bold;" : "" } ${ p =>
+	p.align ? `text-align: ${ p.align };` : "" };
 	// max-width: 44em;
 `;
 
-export const TextCell = props =>
+export const TextCell = props => (
 	<GridCell { ...props }>
-		<TextBox { ...R.pick(["bold", "align",])(props) }>
-			{ props.children }
+		<TextBox { ...R.pick([ "bold", "align", ])(props) }>
+			{props.children}
 		</TextBox>
-	</GridCell>;
+	</GridCell>
+);
 
 // --------------------------------------------------
 
 export const Container = styled.div`
-	${ mixins.bpEach("padding", vars.dim.gutter.container) } ${p =>
-	p.fullWidth ? "" : `max-width: ${p.maxWidth || vars.bps.lg.min}px`};
+	${ mixins.bpEach("padding", vars.dim.gutter.container) } ${ p =>
+	p.fullWidth ? "" : `max-width: ${ p.maxWidth || vars.bps.lg.min }px` };
 	margin: auto;
-	${p => (p.rel ? "position: relative;" : "")} ${p =>
-	p.border
-		? `border-bottom: 1px solid ${vars.colors.lines};`
-		: ""} ${p => (p.center ? "text-align: center;" : "")};
+	${ p => (p.rel ? "position: relative;" : "") } ${ p =>
+	p.border ? `border-bottom: 1px solid ${ vars.colors.lines };` : "" } ${ p =>
+	p.center ? "text-align: center;" : "" };
 
 
 `;
@@ -60,24 +59,23 @@ export const Bg = styled.div`
 			? `
 		background-image:
 			linear-gradient( rgba(0,0,0,${ p.tint || bgTint }), rgba(0,0,0,${ p.tint ||
-					bgTint}) ),
-			url(${p.image});
+					bgTint }) ),
+			url(${ p.image });
 		background-size: cover;
 		background-position: center center;
 	`
-			: ""} ${p => (p.color ? `background-color: ${p.color};` : "")};
+			: "" } ${ p => (p.color ? `background-color: ${ p.color };` : "") };
 `;
 
 // --------------------------------------------------
 
-export const Para = props =>
+export const Para = props => (
 	<div>
-		{ props.children.split("\n").map((p, i) =>
-			<p key = { `${p.slice(0, 5)}/${i}` }>
-				{p}
-			</p>,
-		) }
-	</div>;
+		{props.children
+			.split("\n")
+			.map((p, i) => <p key = { `${ p.slice(0, 5) }/${ i }` }>{p}</p>)}
+	</div>
+);
 
 // --------------------------------------------------
 
@@ -87,26 +85,22 @@ export const FullWidthImg = styled.img`
 `;
 
 export const SmartImg = styled.div`
-	${p => (
+	${ p =>
 		p.height && p.width
-		? (
-			p.height <= p.width || p.unlimitedHeight
-			? `
+			? p.height <= p.width || p.unlimitedHeight
+				? `
 				width: 100%;
-				padding-top: ${100 * (p.height / p.width)}%;
+				padding-top: ${ 100 * (p.height / p.width) }%;
 			`
-			: `
-				width: ${100 * ( p.width / p.height )}%;
+				: `
+				width: ${ 100 * (p.width / p.height) }%;
 				padding-top: 100%;
 			`
-		)
-		: `
+			: `
 			width: 100%;
 			padding-top: 100%;
-		`
-	)}
-	background-color: rgba(0,0,0,0.2);
-	background-image: url(${R.prop("url")});
+		` } background-color: rgba(0,0,0,0.2);
+	background-image: url(${ R.prop("url") });
 	background-size: cover;
 	background-position: center center;
 	background-repeat: norepeat;
@@ -114,16 +108,14 @@ export const SmartImg = styled.div`
 `;
 
 const IconWrapper = styled.i`
-	font-size: ${p => p.size || "1em"};
-	margin-right: ${p => p.marginRight || 0};
-	margin-left: ${p => p.marginLeft || 0};
+	font-size: ${ p => p.size || "1em" };
+	margin-right: ${ p => p.marginRight || 0 };
+	margin-left: ${ p => p.marginLeft || 0 };
 `;
 
-export const Icon = props =>
-	<IconWrapper
-		className = { `fa fa-${props.type}` }
-		{ ...props }
-	/>
+export const Icon = props => (
+	<IconWrapper className = { `fa fa-${ props.type }` } { ...props } />
+);
 
 export const ButtonWrapper = styled.div`
 	display: inline-block;
@@ -143,20 +135,19 @@ export const ButtonWrapper = styled.div`
 		color: ${ p => p.color || vars.colors.text };
 	}
 
-	${({ outline, color, hoverColor, }) => 
+	${ ({ outline, color, hoverColor, }) =>
 		outline || true
 			? css`
-				color: ${ color || vars.colors.text };
-				border: 1.5px solid ${ color || vars.colors.text };
-				${mixins.xs`border-width: 1px;`}
-				background: transparent;
-
-				&:hover,
-				&:visited,
-				&:active {
 					color: ${ color || vars.colors.text };
-				}
-			`
+					border: 1.5px solid ${ color || vars.colors.text };
+					${ mixins.xs`border-width: 1px;` } background: transparent;
+
+					&:hover,
+					&:visited,
+					&:active {
+						color: ${ color || vars.colors.text };
+					}
+			  `
 			: `
 				color: white;
 				background: ${ color || vars.colors.text };
@@ -168,43 +159,35 @@ export const ButtonWrapper = styled.div`
 				}
 
 				&:hover {
-					background: ${
-						hoverColor ||
-						(color ? mixins.darken(color, 0.1) : mixins.lighten(vars.colors.text, 0.1))
-					};
+					background: ${ hoverColor ||
+						(color
+							? mixins.darken(color, 0.1)
+							: mixins.lighten(vars.colors.text, 0.1)) };
 				}
 
-			`
-	}
+			` };
 `;
 
-const IconSpan = styled.span`display: inline-block;`;
+const IconSpan = styled.span`
+	display: inline-block;
+`;
 
 const MaybeLink = props =>
-	props.to
-		? <Link to = { props.to } children = { props.children } />
-		: <a
-			href = { props.href }
-			children = { props.children }
-			target = { props.target }
-		/>;
+	props.to ? (
+		<Link to = { props.to } children = { props.children } />
+	) : (
+		<a href = { props.href } children = { props.children } target = { props.target } />
+	);
 
 export const IconButton = props => {
 	return (
 		<MaybeLink { ...props }>
 			<ButtonWrapper { ...props }>
-				{ props.icon
-					? <Icon
-						type = { props.icon }
-						size = "1.2em"
-						marginRight = "0.4em"
-					/>
-					: null
-				}
+				{props.icon ? (
+					<Icon type = { props.icon } size = "1.2em" marginRight = "0.4em" />
+				) : null}
 
-				<IconSpan>
-					{ props.text || props.children }
-				</IconSpan>
+				<IconSpan>{props.text || props.children}</IconSpan>
 			</ButtonWrapper>
 		</MaybeLink>
 	);
@@ -212,19 +195,21 @@ export const IconButton = props => {
 
 export const Button = IconButton;
 
-export const PSpacing = styled.div`${mixins.bpEach("height", vars.font.size)};`;
+export const PSpacing = styled.div`
+	${ mixins.bpEach("height", vars.font.size) };
+`;
 
-export const Only = objMap(vars.bps, (key, val) => ({ children, }) =>
+export const Only = objMap(vars.bps, (key, val) => ({ children, }) => (
 	<MQ
-		query = { `(min-width: ${val.min}px) and (max-width: ${val.max}px)` }
+		query = { `(min-width: ${ val.min }px) and (max-width: ${ val.max }px)` }
 		children = { children }
-	/>,
-);
+	/>
+));
 
 export const Line = styled.div`
 	height: 1.5px;
 	width: 100%;
-	background-color: ${R.path([ "theme", "text", ])};
+	background-color: ${ R.path([ "theme", "text", ]) };
 `;
 
 const LineCellWrapper = styled(GridCell)`
@@ -234,7 +219,7 @@ const LineCellWrapper = styled(GridCell)`
 
 export const LineCell = () => (
 	<LineCellWrapper>
-		<Line/>
+		<Line />
 	</LineCellWrapper>
 );
 
@@ -244,13 +229,13 @@ export const PageWrapper = styled.div`
 	position: relative;
 	overflow: hidden;
 
-	${mixins.xs`
-		& > ${Container} {
+	${ mixins.xs`
+		& > ${ Container } {
 			padding-left: 0;
 			padding-right: 0;
 
 		}
-	`}	
+	` };
 `;
 
 export const PageImage = styled.img`
@@ -269,12 +254,10 @@ export const PageBody = styled.div`
 	margin-top: 6em;
 	margin-bottom: 3em;
 	padding: 2.5em;
-	${mixins.xs`
+	${ mixins.xs`
 		margin-top: 4em;
 		padding: 1.8em;
-	`}
-
-	h1 {
+	` } h1 {
 		background: ${ vars.colors.bg };
 		padding: 0 1.5em 0.5em 0;
 		position: relative;
@@ -288,11 +271,11 @@ export const PageBody = styled.div`
 // --------------------------------------------------
 
 export const TilesWrapper = styled.div`
-	${ mixins.clearfix }
+	${ mixins.clearfix };
 `;
 
 export const TileWrapper = styled(GridCell)`
-	width: ${ props => props.small ? "33.3333333333333%" : "50%" };
+	width: ${ props => (props.small ? "33.3333333333333%" : "50%") };
 	width: 50%;
 	${ mixins.xs`width: 100%` };
 	float: left;
@@ -300,7 +283,7 @@ export const TileWrapper = styled(GridCell)`
 
 export const TileInner = styled(GridCell)`
 	//background-color: white;
-	//border: 1px solid ${R.path(["theme", "borders",])};
+	//border: 1px solid ${ R.path([ "theme", "borders", ]) };
 	//box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 	position: relative;
 	${ mixins.bp.sm.min`padding : 0` };
@@ -315,8 +298,8 @@ export const TileContent = styled.div`
 	margin-bottom: 1em;
 	padding: 0.5em 1em;
 
-	p { 
-		font-size: 0.95em 
+	p {
+		font-size: 0.95em;
 	}
 `;
 
@@ -327,16 +310,17 @@ export const TileImage = styled.div`
 export const TileTitle = styled.h3`
 	margin-bottom: 0;
 
-	:hover, :active {
+	:hover,
+	:active {
 		opacity: 0.7;
 	}
 
 	:after {
 		margin-top: 0.5em;
-		content: '';
+		content: "";
 		display: block;
 		width: 5em;
-		border-bottom: 0.4em solid rgba(0,0,0,0.15);
+		border-bottom: 0.4em solid rgba(0, 0, 0, 0.15);
 	}
 `;
 

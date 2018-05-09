@@ -5,8 +5,8 @@ import {
 	PageWrapper,
 	PageBody,
 	PageImage,
-	Container, 
-	TextCell, 
+	Container,
+	TextCell,
 } from "src/components/common";
 
 import Head from "src/components/common/Head";
@@ -26,27 +26,30 @@ const EventRole = styled.div`
 
 // --------------------------------------------------
 
-const Event = ( { event, title, } ) => (
+const Event = ({ event, title, }) => (
 	<PageWrapper>
 		<Head pageData = { null } />
 
 		<Container>
 			<TextCell>
 				<PageBody>
-					<h1>{ event.name }</h1>
+					<h1>{event.name}</h1>
 
-					<EventDate>{ Moment(event.date).format('Do MMMM YYYY') }, { event.location }</EventDate>
+					<EventDate>
+						{Moment(event.date).format("Do MMMM YYYY")},{" "}
+						{event.location}
+					</EventDate>
 
-					<EventRole>{ event.role }</EventRole>
+					<EventRole>{event.role}</EventRole>
 
 					{/*<p>{ event.description }</p>*/}
 
-					<p>{ event.content }</p>
+					<p>{event.content}</p>
 				</PageBody>
 			</TextCell>
 		</Container>
-		
-		<PageImage src = { event.image.url }/>
+
+		<PageImage src = { event.image.url } />
 	</PageWrapper>
 );
 

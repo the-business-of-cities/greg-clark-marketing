@@ -11,7 +11,7 @@ const logosPerRow = {
 	lg: 5,
 };
 
-const logoWidths = R.map(n => `${100 / n}%`)(logosPerRow);
+const logoWidths = R.map(n => `${ 100 / n }%`)(logosPerRow);
 
 const LogoGridWrapper = styled.div`
 	display: flex;
@@ -21,8 +21,7 @@ const LogoGridWrapper = styled.div`
 `;
 
 const LogoWrapper = styled.div`
-	${mixins.bpEach("width", logoWidths)}
-	filter: grayscale(1);
+	${ mixins.bpEach("width", logoWidths) } filter: grayscale(1);
 	opacity: 0.5;
 `;
 
@@ -33,8 +32,8 @@ const LogoInner = styled.div`
 `;
 
 const LogoImage = styled.div`
-	${mixins.contained("12%")}
-	background-image: url(${R.prop("src")});
+	${ mixins.contained("12%") }
+	background-image: url(${ R.prop("src") });
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -42,15 +41,13 @@ const LogoImage = styled.div`
 
 const LogoGrid = ({ logos, }) => (
 	<LogoGridWrapper>
-		{
-			(logos || []).map(({ url, }, i) => (
-				<LogoWrapper key = { i }>
-					<LogoInner>
-						<LogoImage src = { url }/>
-					</LogoInner>
-				</LogoWrapper>
-			))
-		}
+		{(logos || []).map(({ url, }, i) => (
+			<LogoWrapper key = { i }>
+				<LogoInner>
+					<LogoImage src = { url } />
+				</LogoInner>
+			</LogoWrapper>
+		))}
 	</LogoGridWrapper>
 );
 

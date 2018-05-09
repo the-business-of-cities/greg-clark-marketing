@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-import { 
+import {
 	PageWrapper,
 	PageBody,
 	PageImage,
@@ -10,48 +8,46 @@ import {
 
 import * as mixins from "src/components/style/mixins";
 
+import styled from "styled-components";
 import Head from "src/components/common/Head";
 
 // --------------------------------------------------
 
 export const SecondaryImage = styled.div`
-	${mixins.bp.sm.min`margin-top: -6.5em;`}
-
-	img {
+	${ mixins.bp.sm.min`margin-top: -6.5em;` } img {
 		width: 100%;
 	}
 `;
 
 // --------------------------------------------------
 
-const Generic = ( page ) => (
+const Generic = page => (
 	<PageWrapper>
-		<Head
-			pageData = { page }
-		/>
+		<Head pageData = { page } />
 
 		<Container>
 			<TextCell>
 				<PageBody>
-					<h1>{ page.fullTitle || page.title }</h1>
+					<h1>{page.fullTitle || page.title}</h1>
 
-					{
-						page.secondaryImage
-						? <SecondaryImage><img src = { page.secondaryImage.url }/></SecondaryImage>
-						: null
-					}
+					{page.secondaryImage ? (
+						<SecondaryImage>
+							<img src = { page.secondaryImage.url } />
+						</SecondaryImage>
+					) : null}
 
+					<div
+						dangerouslySetInnerHTML = { {
+							__html: page.html,
+						} }
+					/>
 
-					<div dangerouslySetInnerHTML = {{
-						__html: page.html,
-					}}/>
-
-					{ page.children }
+					{page.children}
 				</PageBody>
 			</TextCell>
 		</Container>
-		
-		<PageImage src = { page.image.url }/>
+
+		<PageImage src = { page.image.url } />
 	</PageWrapper>
 );
 

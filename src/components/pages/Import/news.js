@@ -4,11 +4,9 @@ import toMarkdown from "to-markdown";
 import { plog, } from "src/lib/util";
 
 const lang = "en-US";
-const addLangKeys = R.map(
-	val => ({
-		[lang]: val,
-	})
-);
+const addLangKeys = R.map(val => ({
+	[lang]: val,
+}));
 
 export const createNews = ({ space, }) => ({
 	title,
@@ -17,50 +15,45 @@ export const createNews = ({ space, }) => ({
 	originalDate,
 	featured,
 }) => {
-	(
-		image
-		? (
-			space.createAsset({
+	(image
+		? space
+			.createAsset({
 				fields: addLangKeys({
 					file: image,
 				}),
 			})
-			.then(asset => (
-				asset.processForAllLocales()
-				.then(
-					asset => asset,
-					() => Promise.resolve()
-				)
-			))
+			.then(asset =>
+				asset
+					.processForAllLocales()
+					.then(asset => asset, () => Promise.resolve()),
+			)
 			.then(plog("asset"))
-		)
 		: Promise.resolve()
 	)
-	.then(asset => (
-		space.createEntry("news", {
-			fields: addLangKeys({
-				title,
-				content,
-				originalDate,
-				featured,
-				...(
-					asset
-					? {
-						image: {
-							sys: {
-								type: "Link",
-								linkType: "Asset",
-								id: asset.sys.id,
-							},
-						},
-					}
-					: {}
-				),
-			}),
-		})
-		.then(plog("entry"))
-	))			
-	.then(plog("then"));
+		.then(asset =>
+			space
+				.createEntry("news", {
+					fields: addLangKeys({
+						title,
+						content,
+						originalDate,
+						featured,
+						...(asset
+							? {
+								image: {
+									sys: {
+										type: "Link",
+										linkType: "Asset",
+										id: asset.sys.id,
+									},
+								},
+							  }
+							: {}),
+					}),
+				})
+				.then(plog("entry")),
+		)
+		.then(plog("then"));
 };
 
 export const onSubmitNewsXml = ({ xml, createNews, }) => () => {
@@ -69,45 +62,48 @@ export const onSubmitNewsXml = ({ xml, createNews, }) => () => {
 	});
 
 	const _items = R.path([ "rss", "channel", "item", ])(json);
-	const items = _items.slice(0,10);
+	const items = _items.slice(0, 10);
 
 	const inputs = items.map(item => {
-
 		// -- TITLE ----
 		const title = R.path([ "title", "_text", ])(item) || "";
 
 		// -- CONTENT ----
 		const content = toMarkdown(
-			(R.path(["content:encoded", "_cdata"])(item) || "")
-			.replace(/<img([^\>]+)>/g, " ")
+			(R.path([ "content:encoded", "_cdata", ])(item) || "").replace(
+				/<img([^\>]+)>/g,
+				" ",
+			),
 		);
 
 		// -- IMAGE ----
 		const imageUrl = ((
-			(R.path(["content:encoded", "_cdata"])(item) || "")
-			.match(/src="([^"]+)"/)
-		) || {})[1];
+			R.path([ "content:encoded", "_cdata", ])(item) || ""
+		).match(/src="([^"]+)"/) || {})[1];
 
-		const image = (
-			imageUrl
+		const image = imageUrl
 			? {
 				upload: imageUrl,
 				fileName: imageUrl.slice(imageUrl.lastIndexOf("/") + 1),
-				contentType: "image/" + imageUrl.slice(imageUrl.lastIndexOf(".") + 1),
-			}
-			: undefined
-		);
+				contentType:
+						"image/" +
+						imageUrl.slice(imageUrl.lastIndexOf(".") + 1),
+			  }
+			: undefined;
 
 		// -- DATE ----
 		let originalDate = undefined;
 		if (item.pubDate && item.pubDate._text) {
-			originalDate = (new Date(item.pubDate._text)).toISOString();
+			originalDate = new Date(item.pubDate._text).toISOString();
 		}
 
 		// -- FEATURED ----
 		let featured = false;
 		const setFeatured = c => {
-			if (c._attributes.domain === "post_tag" && c._cdata === "featured") {
+			if (
+				c._attributes.domain === "post_tag" &&
+				c._cdata === "featured"
+			) {
 				featured = true;
 			}
 		};
@@ -115,8 +111,7 @@ export const onSubmitNewsXml = ({ xml, createNews, }) => () => {
 		if (item.category) {
 			if (item.category.forEach) {
 				item.category.forEach(setFeatured);
-			}
-			else {
+			} else {
 				setFeatured(item.category);
 			}
 		}
@@ -140,18 +135,14 @@ export const onSubmitNewsXml = ({ xml, createNews, }) => () => {
 				originalDate,
 				featured,
 			};
-		}
-		else {
+		} else {
 			return null;
 		}
 	});
 
 	return inputs.reduce(
-		(p, input) => p.then(() => (
-			input
-			? createNews(input)
-			: Promise.resolve()
-		)),
-		Promise.resolve()
+		(p, input) =>
+			p.then(() => (input ? createNews(input) : Promise.resolve())),
+		Promise.resolve(),
 	);
 };

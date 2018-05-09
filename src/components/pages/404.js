@@ -1,6 +1,6 @@
 import Head from "src/components/common/Head";
 
-import { 
+import {
 	PageWrapper,
 	PageBody,
 	PageImage,
