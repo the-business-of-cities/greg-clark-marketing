@@ -76,7 +76,6 @@ const additionalGlobalStyles = css`
 	h2,
 	h3 {
 		display: inline-block;
-		//border-bottom: 0.33em solid ${ vars.colors.bgdark };
 
 		:after {
 			margin-top: 0.5em;

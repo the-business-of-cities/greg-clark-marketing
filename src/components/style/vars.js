@@ -16,21 +16,17 @@ export const breakpoints = {
 export const bps = breakpoints;
 
 export const colors = {
-	text: "#444",
+	background: "#FFEFDB",
+	bgdark: "#E4C1A3",
+	bg: "#FCDABF",
+	borders: "rgba(0,0,0,0.2)",
+	footer: "#333",
+	grey: "rgba(0,0,0,0.2)",
+	lines: "rgba(0,0,0,0.2)",
 	link: "#405378",
 	linkHover: "#4D6491",
 	nav: "#333",
-	//nav: "#041C3A",
-	footer: "#333",
-	//footer: "#041C3A",
-	bg: "#FCDABF",
-	bg: "#fff",
-	bgdark: "#E4C1A3",
-	bgdark: "#ddd",
-	//background: #FFEFDB;
-	grey: "rgba(0,0,0,0.2)",
-	lines: "rgba(0,0,0,0.2)",
-	borders: "rgba(0,0,0,0.2)",
+	text: "#444",
 };
 
 export const font = {

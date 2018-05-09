@@ -26,6 +26,7 @@ const makeMapUsingSlugs = list => {
 };
 
 const shapeImageField = o => {
+
 	if (o.fields) {
 		const {
 			fields: {
@@ -46,7 +47,7 @@ const shapeImageField = o => {
 			fileName,
 			height,
 			size,
-			url,
+			url: `//res.cloudinary.com/codogo/image/fetch/c_limit,w_${400 * Math.ceil(window.innerWidth / 400 )},f_auto,q_auto/https:${url}`,
 			width,
 		};
 	} else {

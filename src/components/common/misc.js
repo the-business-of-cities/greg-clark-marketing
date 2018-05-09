@@ -46,8 +46,6 @@ export const Container = styled.div`
 	${ p => (p.rel ? "position: relative;" : "") } ${ p =>
 	p.border ? `border-bottom: 1px solid ${ vars.colors.lines };` : "" } ${ p =>
 	p.center ? "text-align: center;" : "" };
-
-
 `;
 
 // --------------------------------------------------
@@ -282,9 +280,9 @@ export const TileWrapper = styled(GridCell)`
 `;
 
 export const TileInner = styled(GridCell)`
-	//background-color: white;
-	//border: 1px solid ${ R.path([ "theme", "borders", ]) };
-	//box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+	background-color: white;
+	border: 1px solid ${ R.path([ "theme", "borders", ]) };
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 	position: relative;
 	${ mixins.bp.sm.min`padding : 0` };
 	margin-bottom: 1em;
