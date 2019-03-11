@@ -45,7 +45,7 @@
     "jsonfile": "^3.0.1",
     "prettier": "^1.12.1",
     "process-promises": "^1.0.0",
-    "sitemap-static": "^0.4.2"
+    "sitemap-static": "^0.4.4"
   },
   "scripts": {
     "build": "codogo-scripts pack",
